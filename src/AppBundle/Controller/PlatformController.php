@@ -12,7 +12,7 @@ class PlatformController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('::layout.html.twig');
+        return $this->render('::index.html.twig');
     }
 
     /**

@@ -1,6 +1,101 @@
 body
 {
     background-image: url(../images/louvres-1525621_1920.jpg);
-    background-color: black;
-    border: 4px solid red;
+
+}
+
+.container
+{
+    border: 2px solid black;
+    padding: 0;
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7),
+    -1px 2px 20px rgba(255, 255, 255, 0.6) inset;
+}
+
+/* HEADER */
+#header
+{
+    padding: 0;
+    display: flex;
+    align-items: center;
+    background-color: rgba(26, 26, 26, 0.90);
+    margin-bottom: 25px;
+}
+
+#titre_header
+{
+    text-align: center;
+    margin: auto;
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+}
+
+/* ==========================================*/
+
+/* MESSAGE ACCUEIL */
+#message_accueil
+{
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+#message_accueil > h2
+{
+    text-decoration: underline;
+    font-size: 1.5em;
+    margin-bottom: 25px;
+}
+
+#message_accueil p
+{
+    padding-bottom: 15px;
+}
+
+/* ============================================== */
+
+/* FOOTER */
+footer
+{
+    background-color: rgba(26, 26, 26, 0.90);
+}
+footer ul
+{
+    display: flex;
+    justify-content: center;
+}
+
+footer li
+{
+    margin-right: 20px;
+    color: white;
+}
+
+footer a
+{
+    font-size: 0.9em;
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover
+{
+    color: red;
+}
+
+footer p
+{
+    color: white;
+    font-style: italic;
+    font-size: 0.8em;
+    margin-top: 10px;
+    text-align: center;
+
+}
+
+/* =============================== */
+
+/* PAGE RECAPITULATIF DE COMMANDE */
+#page_recap
+{
+    background-color: rgba(255, 255, 255, 0.85);
 }

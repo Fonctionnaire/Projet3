@@ -2,5 +2,23 @@
 
 {% block body %}
     {{ parent() }}
+
+    <div id="page_recap">
+        <h2>Récapituatif de votre commande</h2>
+
+        <div>
+            <p>Jours de la visite :</p>
+            <p>Type de billet :</p>
+            <p>Nombre de billets :</p>
+        </div>
+        <div>
+            <p>Montant total :</p>
+        </div>
+
+        <div>
+            <button>PROCEDER AU PAIEMENT</button>
+            <a href="{{ path('homepage') }}"><p>Retour au choix des billets</p></a>
+        </div>
+    </div>
 {% endblock %}
 

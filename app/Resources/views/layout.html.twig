@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{% block title %}Billetterie{% endblock %}</title>
+    <title>{% block title %}Louvre - Billetterie{% endblock %}</title>
 
     {% block stylesheets %}
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -16,17 +16,31 @@
 </head>
 <body>
     <div class="container">
-        <header class="jumbotron col-md-12 text-center">
-
+        <header >
+            <div class=" col-md-12" id="header">
+                <a href="http://www.louvre.fr/" target="_blank"><img src="{{ asset('images/tn_louvre-530058_1280.jpg') }}" title="Vers l'accueil" alt="Logo Louvre" id="logo"></a>
+                <h1 id="titre_header">BILLETTERIE</h1>
+            </div>
         </header>
-
 
         {% block body %}
         {% endblock %}
 
+        <footer id="footer">
+            <nav>
+                <ul>
+                    <li><a href="http://www.louvre.fr/" target="_blank">Accueil</a></li>
+
+                    <li><a>Conditions Générales de vente</a></li>
+                </ul>
+                <p>© Musée du Louvre - {{ 'now'|date('Y') }}. Tous droits réservés</p>
+            </nav>
+
+        </footer>
+
     </div>
 {% block javascripts %}
-    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 {% endblock %}
