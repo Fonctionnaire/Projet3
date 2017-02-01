@@ -36,7 +36,7 @@ body
 /* MESSAGE ACCUEIL */
 #message_accueil
 {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.90);
 }
 
 #message_accueil > h2
@@ -49,6 +49,29 @@ body
 #message_accueil p
 {
     padding-bottom: 15px;
+}
+
+/* FORMULAIRE */
+
+#titre_formulaire
+{
+    height: 35px;
+    background: grey;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.formulaire
+{
+    background-color: rgba(255, 255, 255, 0.90);
+}
+
+#titre_billet
+{
+    height: 35px;
+    background: grey;
+    text-align: center;
+    padding-top: 10px;
 }
 
 /* ============================================== */
@@ -75,6 +98,7 @@ footer a
     font-size: 0.9em;
     color: white;
     text-decoration: none;
+    text-transform: none;
 }
 
 footer a:hover
@@ -97,5 +121,5 @@ footer p
 /* PAGE RECAPITULATIF DE COMMANDE */
 #page_recap
 {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.90);
 }

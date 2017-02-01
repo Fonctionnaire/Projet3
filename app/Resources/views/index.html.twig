@@ -12,5 +12,30 @@
             Vous receverez vos billets à l'adresse e-mail renseignée dans le formulaire.
         </p>
     </div>
+    <div id="titre_formulaire">
+        <h2>Choisissez la date et le type de billet souhaité pour votre visite</h2>
+    </div>
+
+    <div class="formulaire">
+
+        {{ form_start(form) }}
+        {{ form_row(form.dateVisite) }}
+        {{ form_row(form.typeTicket) }}
+        <div id="titre_billet"><h3>Nombre de billet(s) souhaité et renseignements</h3></div>
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.dateNaissance) }}
+        {{ form_row(form.pays) }}
+        {{ form_row(form.reduction) }}
+        {{ form_row(form.commande) }}
+        {{ form_widget(form.Valider) }}
+        {{ form_end(form) }}
+
+    </div>
+
+
+
+
+
 
 {% endblock %}

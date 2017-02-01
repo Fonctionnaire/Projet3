@@ -22,6 +22,20 @@ class Ticket
     private $id;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateVisite", type="date")
+     */
+    private $dateVisite;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="typeTicket", type="boolean")
+     */
+    private $typeTicket;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
@@ -36,6 +50,26 @@ class Ticket
     private $prenom;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateNaissance", type="date")
+     */
+    private $dateNaissance;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="reduction", type="boolean", nullable=true)
+     */
+    private $reduction;
+
+    /**
+     *
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Prix", cascade={"persist"})
+     */
+    private $prix;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="pays", type="string", length=255)
@@ -43,32 +77,30 @@ class Ticket
     private $pays;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_naissance", type="date")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Commande", inversedBy="tickets")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $dateNaissance;
+    private $commande;
+
+
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="reduction", type="boolean")
+     * @return mixed
      */
-    private $reduction;
+    public function getCommande()
+    {
+        return $this->commande;
+    }
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="prix", type="integer")
+     * @param mixed $commande
      */
-    private $prix;
+    public function setCommande($commande)
+    {
+        $this->commande = $commande;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="typeTicket", type="boolean")
-     */
-    private $typeTicket;
+        return $this;
+    }
 
 
     /**
@@ -80,6 +112,32 @@ class Ticket
     {
         return $this->id;
     }
+
+    /**
+     * Set dateVisite
+     *
+     * @param \DateTime $dateVisite
+     *
+     * @return Ticket
+     */
+    public function setDateVisite($dateVisite)
+    {
+        $this->dateVisite = $dateVisite;
+
+        return $this;
+    }
+
+    /**
+     * Get dateVisite
+     *
+     * @return \DateTime
+     */
+    public function getDateVisite()
+    {
+        return $this->dateVisite;
+    }
+
+
 
     /**
      * Set nom
@@ -127,30 +185,6 @@ class Ticket
     public function getPrenom()
     {
         return $this->prenom;
-    }
-
-    /**
-     * Set pays
-     *
-     * @param string $pays
-     *
-     * @return Ticket
-     */
-    public function setPays($pays)
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
-    /**
-     * Get pays
-     *
-     * @return string
-     */
-    public function getPays()
-    {
-        return $this->pays;
     }
 
     /**
@@ -226,27 +260,52 @@ class Ticket
     }
 
     /**
-     * Set typeTicket
+     * Set pays
      *
-     * @param boolean $typeTicket
+     * @param string $pays
      *
      * @return Ticket
      */
-    public function setTypeTicket($typeTicket)
+    public function setPays($pays)
     {
-        $this->typeTicket = $typeTicket;
+        $this->pays = $pays;
 
         return $this;
     }
 
     /**
+     * Get pays
+     *
+     * @return string
+     */
+    public function getPays()
+    {
+        return $this->pays;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTypeTicket()
+    {
+        return $this->typeTicket;
+    }
+
+    /**
+     * @param bool $typeTicket
+     */
+    public function setTypeTicket($typeTicket)
+    {
+        $this->typeTicket = $typeTicket;
+    }
+
+    /**
      * Get typeTicket
      *
-     * @return bool
+     * @return boolean
      */
     public function getTypeTicket()
     {
         return $this->typeTicket;
     }
 }
-

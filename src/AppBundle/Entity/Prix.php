@@ -24,35 +24,35 @@ class Prix
     /**
      * @var int
      *
-     * @ORM\Column(name="normal", type="integer")
+     * @ORM\Column(name="normal", type="integer", options={"default" = 16})
      */
     private $normal;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="enfant", type="integer")
+     * @ORM\Column(name="enfant", type="integer", options={"default" = 8})
      */
     private $enfant;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="gratuit", type="integer")
+     * @ORM\Column(name="gratuit", type="integer", options={"default" = 0})
      */
     private $gratuit;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="senior", type="integer")
+     * @ORM\Column(name="senior", type="integer", options={"default" = 12})
      */
     private $senior;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="reduit", type="integer")
+     * @ORM\Column(name="reduit", type="integer", options={"default" = 10})
      */
     private $reduit;
 
@@ -187,4 +187,3 @@ class Prix
         return $this->reduit;
     }
 }
-
