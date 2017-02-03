@@ -21,19 +21,9 @@ class Ticket
      */
     private $id;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateVisite", type="date")
-     */
-    private $dateVisite;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="typeTicket", type="boolean")
-     */
-    private $typeTicket;
+
+
 
     /**
      * @var string
@@ -83,61 +73,15 @@ class Ticket
     private $commande;
 
 
-
-    /**
-     * @return mixed
-     */
-    public function getCommande()
-    {
-        return $this->commande;
-    }
-
-    /**
-     * @param mixed $commande
-     */
-    public function setCommande($commande)
-    {
-        $this->commande = $commande;
-
-        return $this;
-    }
-
-
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-
-    /**
-     * Set dateVisite
-     *
-     * @param \DateTime $dateVisite
-     *
-     * @return Ticket
-     */
-    public function setDateVisite($dateVisite)
-    {
-        $this->dateVisite = $dateVisite;
-
-        return $this;
-    }
-
-    /**
-     * Get dateVisite
-     *
-     * @return \DateTime
-     */
-    public function getDateVisite()
-    {
-        return $this->dateVisite;
-    }
-
-
 
     /**
      * Set nom
@@ -228,35 +172,11 @@ class Ticket
     /**
      * Get reduction
      *
-     * @return bool
+     * @return boolean
      */
     public function getReduction()
     {
         return $this->reduction;
-    }
-
-    /**
-     * Set prix
-     *
-     * @param integer $prix
-     *
-     * @return Ticket
-     */
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
-    /**
-     * Get prix
-     *
-     * @return int
-     */
-    public function getPrix()
-    {
-        return $this->prix;
     }
 
     /**
@@ -284,28 +204,50 @@ class Ticket
     }
 
     /**
-     * @return bool
-     */
-    public function isTypeTicket()
-    {
-        return $this->typeTicket;
-    }
-
-    /**
-     * @param bool $typeTicket
-     */
-    public function setTypeTicket($typeTicket)
-    {
-        $this->typeTicket = $typeTicket;
-    }
-
-    /**
-     * Get typeTicket
+     * Set prix
      *
-     * @return boolean
+     * @param \AppBundle\Entity\Prix $prix
+     *
+     * @return Ticket
      */
-    public function getTypeTicket()
+    public function setPrix(\AppBundle\Entity\Prix $prix = null)
     {
-        return $this->typeTicket;
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * Get prix
+     *
+     * @return \AppBundle\Entity\Prix
+     */
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+
+    /**
+     * Set commande
+     *
+     * @param \AppBundle\Entity\Commande $commande
+     *
+     * @return Ticket
+     */
+    public function setCommande(\AppBundle\Entity\Commande $commande)
+    {
+        $this->commande = $commande;
+
+        return $this;
+    }
+
+    /**
+     * Get commande
+     *
+     * @return \AppBundle\Entity\Commande
+     */
+    public function getCommande()
+    {
+        return $this->commande;
     }
 }

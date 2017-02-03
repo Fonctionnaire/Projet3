@@ -19,16 +19,20 @@
     <div class="formulaire">
 
         {{ form_start(form) }}
-        {{ form_row(form.dateVisite) }}
-        {{ form_row(form.typeTicket) }}
-        <div id="titre_billet"><h3>Nombre de billet(s) souhaité et renseignements</h3></div>
-        {{ form_row(form.nom) }}
-        {{ form_row(form.prenom) }}
-        {{ form_row(form.dateNaissance) }}
-        {{ form_row(form.pays) }}
-        {{ form_row(form.reduction) }}
-        {{ form_row(form.commande) }}
-        {{ form_widget(form.Valider) }}
+
+            {{ form_row(form.dateVisite) }}
+            {{ form_row(form.typeTicket) }}
+            
+        <ul class="tickets" data-prototype="{{ form_widget(form.tickets.vars.prototype)|e('html_attr') }}">
+            {% for ticket in form.tickets %}
+
+                {{ form_errors(ticket) }}
+                {{ form_widget(ticket) }}
+
+            {% endfor %}
+        </ul>
+
+            {{ form_row(form.email) }}
         {{ form_end(form) }}
 
     </div>

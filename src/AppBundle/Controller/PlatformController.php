@@ -24,20 +24,26 @@ class PlatformController extends Controller
         $commande->setEmail('test@test.com');
         $commande->setPrixTotal(12);
 
-        $form = $this->createForm(TicketType::class, $ticket);
+        $ticket->setCommande($commande);
+        $commande->getTickets()->add($ticket);
+
+        $form = $this->createForm(CommandeType::class, $commande);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid())
         {
-            $ticket->setCommande($commande);
+
 
             $em = $this->getDoctrine()->getManager();
 
-            $em->persist($commande);
             $em->persist($ticket);
+            $em->persist($commande);
+
+            dump($ticket);
+            dump($commande);
 
             $em->flush();
 
-            return $this->redirectToRoute('recap');
+            return $this->redirectToRoute('recap', array('id' => $commande->getId()));
         }
 
         return $this->render('::index.html.twig', array(
@@ -50,12 +56,15 @@ class PlatformController extends Controller
     /**
      * @Route("/recapitulatif/{id}", name="recap")
      */
-    public function recapAction($id)
+    public function recapAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $tickets = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Commande')
+            ->getAllTickets();
 
-        $commande = $em->getRepository('AppBundle:Commande')->find($id);
-
+        dump($tickets);
 
 
 

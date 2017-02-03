@@ -4,30 +4,39 @@ namespace AppBundle\calculPrix;
 
 use AppBundle\Entity\Ticket;
 use AppBundle\Entity\Prix;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityRepository;
 
 class calculPrix
 {
 
-    private $dateNaissance;
-    private $prix;
+    private $em;
 
 
 
 
 
-    public function age(Ticket $dateNaissance)
+    public function prixTotal($id, $dateNaissance)
     {
+        // ON RECUPERE LES TICKETS D'UNE COMMANDE
+
+        $commande = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Commande')
+            ->getAllTickets();
+
+        $test = $commande->getTickets($dateNaissance);
+
+
         $dateNaissance = $this->dateNaissance->diff(new \DateTime());
 
         return $dateNaissance->y;
+
+
     }
 
-    public function ticketPrice(Ticket $prix)
-    {
-        $prix = $this->prix;
 
-        return $prix;
-    }
 
 
 

@@ -30,6 +30,22 @@ class Commande
     private $date;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateVisite", type="date")
+     */
+    private $dateVisite;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="typeTicket", type="boolean")
+     */
+    private $typeTicket;
+
+    
+
+    /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
@@ -53,13 +69,19 @@ class Commande
     {
         $this->date = new \Datetime();
 
+        $this->tickets = new ArrayCollection();
+        for ($i=0; $i < 1; $i++){
+            $this->tickets[] = new Ticket();
+        }
     }
 
+
+    
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -88,6 +110,54 @@ class Commande
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set dateVisite
+     *
+     * @param \DateTime $dateVisite
+     *
+     * @return Commande
+     */
+    public function setDateVisite($dateVisite)
+    {
+        $this->dateVisite = $dateVisite;
+
+        return $this;
+    }
+
+    /**
+     * Get dateVisite
+     *
+     * @return \DateTime
+     */
+    public function getDateVisite()
+    {
+        return $this->dateVisite;
+    }
+
+    /**
+     * Set typeTicket
+     *
+     * @param boolean $typeTicket
+     *
+     * @return Commande
+     */
+    public function setTypeTicket($typeTicket)
+    {
+        $this->typeTicket = $typeTicket;
+
+        return $this;
+    }
+
+    /**
+     * Get typeTicket
+     *
+     * @return boolean
+     */
+    public function getTypeTicket()
+    {
+        return $this->typeTicket;
     }
 
     /**
@@ -131,7 +201,7 @@ class Commande
     /**
      * Get prixTotal
      *
-     * @return int
+     * @return integer
      */
     public function getPrixTotal()
     {

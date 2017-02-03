@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 
+use AppBundle\Entity\Ticket;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -28,22 +29,6 @@ class TicketType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
-            ->add('dateVisite', DateType::class, array(
-
-                'html5' => false,
-                'label' => 'Date de votre visite',
-                'attr' => ['class' => 'datepicker'],
-                'placeholder' => 'Cliquez pour choisir une date',
-                'format' => 'dd-MM-yy',
-            ))
-            ->add('typeTicket', ChoiceType::class, array(
-                'choices' => array(
-                    'Journée complète' => true,
-                    'Demi-journée : à partir de 14 heure' => false,
-                ),
-                'label' => 'Choisissez le type de billet que vous souhaitez'
-            ))
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class, array('label' => 'Prénom'))
             ->add('dateNaissance', BirthdayType::class, array(
@@ -52,8 +37,7 @@ class TicketType extends AbstractType
                 ))
             ->add('pays', CountryType::class, array('data' => 'FR'))
             ->add('reduction', CheckboxType::class, array('required' => false))
-            ->add('commande', CommandeType::class)
-            ->add('Valider', SubmitType::class)
+
 
 
         ;
@@ -65,7 +49,7 @@ class TicketType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Ticket'
+            'data_class' => Ticket::class
         ));
     }
 
