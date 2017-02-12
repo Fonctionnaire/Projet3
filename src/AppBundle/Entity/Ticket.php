@@ -49,7 +49,7 @@ class Ticket
     /**
      * @var bool
      *
-     * @ORM\Column(name="reduction", type="boolean", nullable=true)
+     * @ORM\Column(name="reduction", type="boolean")
      */
     private $reduction;
 
@@ -67,11 +67,13 @@ class Ticket
     private $pays;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Commande", inversedBy="tickets")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Commande", inversedBy="tickets", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $commande;
 
+
+   
 
     /**
      * Get id
@@ -210,7 +212,7 @@ class Ticket
      *
      * @return Ticket
      */
-    public function setPrix(\AppBundle\Entity\Prix $prix = null)
+    public function setPrix(\AppBundle\Entity\Prix $prix)
     {
         $this->prix = $prix;
 

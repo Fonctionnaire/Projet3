@@ -7,16 +7,22 @@
         <h2>Récapituatif de votre commande</h2>
 
         <div>
-            <p>Jours de la visite : {{ ticket.dateVisite }}</p>
-            <p>Type de billet : {{ ticket.typeTicket }}</p>
-            <p>Nombre de billets : {{ commande.tickets }}</p>
+            <p>Jours de la visite : {{ cActu.dateVisite|date('d/m/y') }} </p>
+            <p>Type de billet :
+                {% if cActu.typeTicket == true %}
+                    Journée entière
+                    {% else %}
+                    Demi-journée (A partir de 14 heure)
+                {% endif %}
+            </p>
+            <p>Nombre de billets : {{ cActu.nbTickets|length }} </p>
         </div>
         <div>
-            <p>Montant total :{{ commande.prixTotal }}</p>
+            <p>Montant total : {{ cActu.prixTotal }} € </p>
         </div>
 
         <div>
-            <button>PROCEDER AU PAIEMENT</button>
+            <a href="{{ path('paiement') }}"><button>PROCEDER AU PAIEMENT</button></a>
             <a href="{{ path('homepage') }}"><p>Retour au choix des billets</p></a>
         </div>
     </div>

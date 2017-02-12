@@ -4,7 +4,10 @@ parameters:
 #    parameter_name: value
 
 services:
-  app.calculPrix:
-      class: AppBundle\CalculPrix\CalculPrix
+  app.calculprix:
+      class: AppBundle\Services\CalculPrix\CalculPrix
+      arguments:
+          - "@doctrine.orm.entity_manager"
+          - "@service_container"
 
 

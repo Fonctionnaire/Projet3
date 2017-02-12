@@ -3,7 +3,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
+
 /**
  * CommandeRepository
  *
@@ -13,16 +13,5 @@ use Doctrine\ORM\QueryBuilder;
 class CommandeRepository extends EntityRepository
 {
 
-    public function getAllTickets()
-    {
-        $qb = $this
-            ->createQueryBuilder('c')
-            ->leftJoin('c.tickets', 'tic')
-            ->addSelect('tic')
-        ;
-
-        return $qb->getQuery()->getResult();
-
-    }
 
 }

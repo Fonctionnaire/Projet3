@@ -22,12 +22,13 @@
 
             {{ form_row(form.dateVisite) }}
             {{ form_row(form.typeTicket) }}
-            
-        <ul class="tickets" data-prototype="{{ form_widget(form.tickets.vars.prototype)|e('html_attr') }}">
-            {% for ticket in form.tickets %}
 
-                {{ form_errors(ticket) }}
-                {{ form_widget(ticket) }}
+
+        <ul class="tickets" data-prototype="{{ form_widget(form.tickets.vars.prototype)|e('html_attr') }}">
+            {% for ticketField in form.tickets %}
+
+                {{ form_errors(ticketField) }}
+                {{ form_widget(ticketField) }}
 
             {% endfor %}
         </ul>
@@ -36,6 +37,7 @@
         {{ form_end(form) }}
 
     </div>
+
 
 
 

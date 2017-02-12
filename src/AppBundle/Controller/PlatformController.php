@@ -2,13 +2,11 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Entity\Ticket;
 use AppBundle\Entity\Commande;
-use AppBundle\Entity\Prix;
-use AppBundle\Form\TicketType;
+use AppBundle\Entity\Ticket;
 use AppBundle\Form\CommandeType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -22,27 +20,31 @@ class PlatformController extends Controller
         $ticket = new Ticket();
         $commande = new Commande();
         $commande->setEmail('test@test.com');
-        $commande->setPrixTotal(12);
 
-        $ticket->setCommande($commande);
-        $commande->getTickets()->add($ticket);
+        $commande->addTicket($ticket);
 
         $form = $this->createForm(CommandeType::class, $commande);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid())
-        {
-
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
 
-            $em->persist($ticket);
-            $em->persist($commande);
 
-            dump($ticket);
-            dump($commande);
+            $em->persist($commande);
+            $em->persist($ticket);
 
             $em->flush();
 
+            $method = $this->get('app.calculprix');
+            $method->prixTotal($commande->getId());
+
+            $em->persist($commande);
+            $em->persist($ticket);
+            $em->flush();
+
+            dump($ticket);
+            dump($commande);
+            dump($method);
             return $this->redirectToRoute('recap', array('id' => $commande->getId()));
         }
 
@@ -52,26 +54,38 @@ class PlatformController extends Controller
     }
 
 
-
     /**
      * @Route("/recapitulatif/{id}", name="recap")
      */
-    public function recapAction()
+    public function recapAction($id)
     {
-        $tickets = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Commande')
-            ->getAllTickets();
 
-        dump($tickets);
+        $em = $this->getDoctrine()->getManager();
+        $commande = $em->getRepository('AppBundle:Commande')->findOneById($id);
+
+        $cAtcu = array(
+            'date' => $commande->getDate(),
+            'dateVisite' => $commande->getDateVisite(),
+            'prixTotal' => $commande->getPrixTotal(),
+            'typeTicket' => $commande->getTypeTicket(),
+            'nbTickets' => $commande->getTickets(),
+            'id' => $commande->getId(),
+        );
+        dump($cAtcu);
 
 
+        return $this->render('::recap.html.twig', array('cActu' => $cAtcu));
+    }
 
-        return $this->render('::recap.html.twig', array(
-            'commande' => $commande,
-            'id' => $commande->getId()
-        ));
+    /**
+     * @Route("/paiement", name="paiement")
+     */
+    public function paiementAction()
+    {
+
+
+        return $this->render('::paiement.html.twig');
+
     }
 
 

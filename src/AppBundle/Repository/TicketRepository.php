@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 /**
  * TicketRepository
  *
@@ -10,5 +12,7 @@ namespace AppBundle\Repository;
  */
 class TicketRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
 
 }

@@ -3,14 +3,13 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class CommandeType extends AbstractType
 {
@@ -38,19 +37,16 @@ class CommandeType extends AbstractType
             ->add('tickets', CollectionType::class, array(
                 'entry_type' => TicketType::class,
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,
             ))
             ->add('email', EmailType::class, array(
                 'label' => 'Votre adresse Email',
                 'attr' => ['placeholder' => 'jeandupond@gmail.com']
             ))
-            ->add('Valider', SubmitType::class)
-
-
-
-                    ;
+            ->add('Valider', SubmitType::class);
     }
-    
+
     /**
      * {@inheritdoc}
      */

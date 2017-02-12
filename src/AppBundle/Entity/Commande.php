@@ -56,7 +56,7 @@ class Commande
     /**
      * @var int
      *
-     * @ORM\Column(name="prixTotal", type="integer")
+     * @ORM\Column(name="prixTotal", type="integer", nullable=true)
      */
     private $prixTotal;
 
@@ -65,18 +65,17 @@ class Commande
      */
     private $tickets;
 
+
+
     public function __construct()
     {
         $this->date = new \Datetime();
 
         $this->tickets = new ArrayCollection();
-        for ($i=0; $i < 1; $i++){
-            $this->tickets[] = new Ticket();
-        }
+
+
     }
 
-
-    
 
     /**
      * Get id
@@ -215,9 +214,11 @@ class Commande
      *
      * @return Commande
      */
-    public function addTicket(\AppBundle\Entity\Ticket $ticket)
+    public function addTicket(Ticket $ticket)
     {
         $this->tickets[] = $ticket;
+
+        $ticket->setCommande($this);
 
         return $this;
     }
@@ -227,7 +228,7 @@ class Commande
      *
      * @param \AppBundle\Entity\Ticket $ticket
      */
-    public function removeTicket(\AppBundle\Entity\Ticket $ticket)
+    public function removeTicket(Ticket $ticket)
     {
         $this->tickets->removeElement($ticket);
     }
@@ -240,5 +241,15 @@ class Commande
     public function getTickets()
     {
         return $this->tickets;
+    }
+
+    /**
+     * @param mixed $tickets
+     */
+    public function setTickets($tickets)
+    {
+        $this->tickets = $tickets;
+
+        return $this;
     }
 }
