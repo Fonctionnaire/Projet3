@@ -70,6 +70,7 @@ class PlatformController extends Controller
             'typeTicket' => $commande->getTypeTicket(),
             'nbTickets' => $commande->getTickets(),
             'id' => $commande->getId(),
+            'email' => $commande->getEmail(),
         );
         dump($cAtcu);
 
@@ -77,16 +78,46 @@ class PlatformController extends Controller
         return $this->render('::recap.html.twig', array('cActu' => $cAtcu));
     }
 
+
+
     /**
-     * @Route("/paiement", name="paiement")
+     * @Route("/validation/{id}", name="validation", methods="POST")
      */
-    public function paiementAction()
+    public function savePaiementAction($id)
     {
+        \Stripe\Stripe::setApiKey("sk_test_tIN6ASnQYiwCF2nnehCiOPIl");
+// Get the credit card details submitted by the form
+        $token = $_POST['stripeToken'];
 
+        $em = $this->getDoctrine()->getManager();
+        $commande = $em->getRepository('AppBundle:Commande')->findOneById($id);
 
-        return $this->render('::paiement.html.twig');
+        dump($commande);
+        $total = $commande->getPrixTotal();
+        dump($total);
+
+        // Create a charge: this will charge the user's card
+        try {
+            $charge = \Stripe\Charge::create(array(
+                "amount" => $total * 100, // Amount in cents
+                "currency" => "eur",
+                "source" => $token,
+                "description" => "Paiement Stripe"
+            ));
+            
+            return $this->redirectToRoute("recap", array('id' => $commande->getId()));
+        } catch(\Stripe\Error\Card $e) {
+
+            $this->addFlash("error","Une erreur s'est produite. Veuillez essayer à nouveau");
+            return $this->redirectToRoute("recap", array('id' => $commande->getId()));
+            // The card has been declined
+        }
+
 
     }
+
+
+
 
 
 }

@@ -21,8 +21,25 @@
             <p>Montant total : {{ cActu.prixTotal }} € </p>
         </div>
 
+        <form action="{{ path('validation', {'id': cActu.id}) }}" method="POST">
+            <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_FBb3IsOVovXnzhLyIt7UlKAS"
+                    data-amount="{{ cActu.prixTotal * 100 }}"
+                    data-label="Procéder au paiement"
+                    data-name="Musée du Louvre"
+                    data-description="Commande de billet(s)"
+                    data-image="{{ asset('images/tn_louvre-530058_1280.jpg') }}"
+                    data-billing-address="true"
+                    data-locale="auto"
+                    data-allow-remember-me="false"
+                    data-email="{{ cActu.email }}"
+                    data-currency="eur">
+            </script>
+        </form>
+
         <div>
-            <a href="{{ path('paiement') }}"><button>PROCEDER AU PAIEMENT</button></a>
+
             <a href="{{ path('homepage') }}"><p>Retour au choix des billets</p></a>
         </div>
     </div>

@@ -22,7 +22,6 @@ class CalculPrix extends Controller
     {
         // ON RECUPERE LES TICKETS D'UNE COMMANDE
 
-
         $em = $this->em->getRepository('AppBundle:Commande')->findOneById($id);
 
         $listTickets = $em->getTickets();
