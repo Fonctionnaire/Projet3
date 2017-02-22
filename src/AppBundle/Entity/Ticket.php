@@ -55,9 +55,11 @@ class Ticket
 
     /**
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Prix", cascade={"persist"})
+     * @ORM\Column(name="prix", type="integer")
      */
     private $prix;
+
+
 
     /**
      * @var string
@@ -206,28 +208,23 @@ class Ticket
     }
 
     /**
-     * Set prix
-     *
-     * @param \AppBundle\Entity\Prix $prix
-     *
-     * @return Ticket
+     * @return mixed
      */
-    public function setPrix(\AppBundle\Entity\Prix $prix)
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+
+    /**
+     * @param mixed $prix
+     */
+    public function setPrix($prix)
     {
         $this->prix = $prix;
 
         return $this;
     }
 
-    /**
-     * Get prix
-     *
-     * @return \AppBundle\Entity\Prix
-     */
-    public function getPrix()
-    {
-        return $this->prix;
-    }
 
     /**
      * Set commande

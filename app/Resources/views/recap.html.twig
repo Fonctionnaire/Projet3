@@ -4,9 +4,9 @@
     {{ parent() }}
 
     <div id="page_recap">
-        <h2>Récapituatif de votre commande</h2>
+        <h2 id="titreRecap">Récapituatif de votre commande</h2>
 
-        <div>
+        <div id="recapCommande">
             <p>Jours de la visite : {{ cActu.dateVisite|date('d/m/y') }} </p>
             <p>Type de billet :
                 {% if cActu.typeTicket == true %}
@@ -17,9 +17,15 @@
             </p>
             <p>Nombre de billets : {{ cActu.nbTickets|length }} </p>
         </div>
-        <div>
+        <div id="montantTotal">
             <p>Montant total : {{ cActu.prixTotal }} € </p>
         </div>
+
+        <form>
+            <input type="checkbox" id="checkCgv" required><label>J'accepte les <a href="https://www.ticketlouvre.fr/louvre/b2c/index.cfm/CGV" target="_blank">conditions générales de vente.</a></label>
+        </form>
+
+        <div id="BoutonPaiement">
 
         <form action="{{ path('validation', {'id': cActu.id}) }}" method="POST">
             <script
@@ -38,9 +44,8 @@
             </script>
         </form>
 
-        <div>
 
-            <a href="{{ path('homepage') }}"><p>Retour au choix des billets</p></a>
+            <a href="{{ path('homepage') }}" id="lienRetour"><p>Retour au choix des billets</p></a>
         </div>
     </div>
 {% endblock %}

@@ -43,7 +43,6 @@ class Commande
      */
     private $typeTicket;
 
-    
 
     /**
      * @var string
@@ -54,13 +53,7 @@ class Commande
 
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="prixTotal", type="integer", nullable=true)
-     */
-    private $prixTotal;
-
-    /**
+     * @var Ticket[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ticket", mappedBy="commande", cascade={"persist"})
      */
     private $tickets;
@@ -70,9 +63,7 @@ class Commande
     public function __construct()
     {
         $this->date = new \Datetime();
-
-        $this->tickets = new ArrayCollection();
-
+        //$this->tickets = new ArrayCollection();
 
     }
 
@@ -183,19 +174,6 @@ class Commande
         return $this->email;
     }
 
-    /**
-     * Set prixTotal
-     *
-     * @param integer $prixTotal
-     *
-     * @return Commande
-     */
-    public function setPrixTotal($prixTotal)
-    {
-        $this->prixTotal = $prixTotal;
-
-        return $this;
-    }
 
     /**
      * Get prixTotal
@@ -204,8 +182,20 @@ class Commande
      */
     public function getPrixTotal()
     {
-        return $this->prixTotal;
+        $prixTickets = 0;
+        foreach ($this->tickets as $ticket){
+            dump($ticket);
+           $prixTickets += $ticket->getPrix();
+           dump($ticket);
+        }
+
+        if($this->getTypeTicket() == false){
+            $prixDemi = $prixTickets / 2;
+            return $prixDemi;
+        }
+        return $prixTickets;
     }
+
 
     /**
      * Add ticket

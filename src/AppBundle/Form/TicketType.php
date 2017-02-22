@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,14 +24,29 @@ class TicketType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('prenom', TextType::class, array('label' => 'Prénom'))
-            ->add('dateNaissance', BirthdayType::class, array(
-                'label' => 'Votre date de naissance',
-                'format' => 'dd-MM-yyyy',
+            ->add('nom', TextType::class, array('attr' => array(
+                'placeholder' => "Nom",
+                'class' => 'nom'
+            ),
+                'label' => false
             ))
-            ->add('pays', CountryType::class, array('data' => 'FR'))
-            ->add('reduction', CheckboxType::class, array('required' => false));
+            ->add('prenom', TextType::class, array('attr' => array(
+                'placeholder' => "Prénom",
+                'class' => 'prenom'
+            ),
+            'label' => false
+            ))
+            ->add('dateNaissance', BirthdayType::class, array(
+                'label' => 'Date de naissance',
+                'format' => 'dd-MM-yyyy',
+                'attr' => ['class' => 'dateNaissance']
+            ))
+            ->add('pays', CountryType::class, array('data' => 'FR',
+                'label' => false,
+                'attr' => ['class' => 'select']))
+            ->add('reduction', CheckboxType::class, array('required' => false,
+                'label' => 'Tarif réduit (1)',
+                'attr' => array('class' => 'checkBox ')));
     }
 
     /**

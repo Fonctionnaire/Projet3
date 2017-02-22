@@ -21,30 +21,48 @@ class PlatformController extends Controller
         $commande = new Commande();
         $commande->setEmail('test@test.com');
 
-        $commande->addTicket($ticket);
+       // $commande->addTicket($ticket);
 
         $form = $this->createForm(CommandeType::class, $commande);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
+            // BOUCLE FOREACH
+
+            $listTickets = $commande->getTickets();
+            foreach ($listTickets as $ticket)
+            {
+                $prixTicket = $this->get("app.calculprix")->prixTotal($ticket);
+
+                dump($commande->getPrixTotal());
+
+                dump($ticket);
+
+                $ticket->setPrix($prixTicket);
+
+
+
+                dump($commande->getPrixTotal());
+
+            }
+
+            dump($commande->getPrixTotal());
+            dump($commande);
+            dump($ticket);
+            dump($commande->getTickets());
             $em = $this->getDoctrine()->getManager();
 
-
+// ====================================================
             $em->persist($commande);
             $em->persist($ticket);
 
             $em->flush();
 
-            $method = $this->get('app.calculprix');
-            $method->prixTotal($commande->getId());
 
-            $em->persist($commande);
-            $em->persist($ticket);
-            $em->flush();
 
             dump($ticket);
             dump($commande);
-            dump($method);
+
             return $this->redirectToRoute('recap', array('id' => $commande->getId()));
         }
 

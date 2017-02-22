@@ -3,45 +3,75 @@
 {%  block body %}
     {{ parent() }}
 
-    <div id="message_accueil">
-        <h2>Le musée du Louvre vous accueil</h2>
-        <p>
-            Vous pouvez dès à présent réserver un ou plusieurs billet(s) grâce à notre billetterie. Choisissez le jour, le type et le nombre de billets que vous souhaitez.
-        </p>
-        <p>
-            Vous receverez vos billets à l'adresse e-mail renseignée dans le formulaire.
-        </p>
+    <div class="container">
+        <div id="message_accueil">
+            <h2>Le musée du Louvre vous accueil</h2>
+            <p>
+                Vous pouvez dès à présent réserver un ou plusieurs billet(s) grâce à notre billetterie. Choisissez le jour, le type et le nombre de billets que vous souhaitez.
+            </p>
+            <p>
+                Vous receverez vos billets à l'adresse e-mail renseignée dans le formulaire.
+            </p>
+        </div>
+
+        <div id="titre_formulaire">
+            <h2>Choisissez la date et le type de billet souhaité pour votre visite</h2>
+        </div>
+
+        <div class="formulaire">
+
+            {{ form_start(form) }}
+
+
+            <p class="text-oblig-Un">Les champs date de visite et type de billet sont obligatoires.</p>
+            <div class="date-type">
+                {{ form_errors(form.dateVisite) }}
+                {{ form_row(form.dateVisite, {'attr': {'placeholder': 'Cliquez pour choisir une date'}}) }}
+
+                {{ form_errors(form.typeTicket) }}
+                {{ form_row(form.typeTicket) }}
+            </div>
+
+
+            <div>
+
+                <div class="titreTicket">
+                    <p>Indiquez les renseigments pour votre/vos billet(s)</p>
+                </div>
+                <div class="conteneurFormTicket">
+                <p class="text-oblig-deux">Les champs Nom, Prénom, Date de naissance, Pays et E-mail sont obligatoires.</p>
+                <div class="displayTicket">
+
+                    {{ form_errors(form.tickets, {'attr': {'class': 'ticketForm'}}) }}
+                    {{ form_widget(form.tickets, {'attr': {'class': 'ticketForm form-inline '}}) }}
+
+
+                </div>
+                <hr>
+
+                <a href="#" id="add_ticket" class="btn btn-default">Ajouter un billet</a>
+
+            </div>
+            </div>
+            <div id="div-tarifReduit">
+                <p id="text-tarifReduit">(1) Un tarif réduit à 10 € accordé dans certaines conditions (étudiant, employé du musée, d'un service du Ministère de la Culture, militaire, etc). Un justificatif (carte étudiant, militaire, etc) vous sera demandé à la présentation du billet.</p>
+            </div>
+
+            <div class="col-xs-4 text-center col-xs-offset-4" id="email">
+                {{ form_errors(form.email) }}
+                {{ form_row(form.email) }}
+                <p id="text-email">Les billets seront envoyés à l'adresse e-mail renseignée</p>
+            </div>
+
+            <div class="bouton-valider col-xs-6 text-center col-xs-offset-3">
+                {{ form_row(form.valider) }}
+
+            </div>
+
+            {{ form_end(form) }}
+
+
+        </div>
+
     </div>
-    <div id="titre_formulaire">
-        <h2>Choisissez la date et le type de billet souhaité pour votre visite</h2>
-    </div>
-
-    <div class="formulaire">
-
-        {{ form_start(form) }}
-
-            {{ form_row(form.dateVisite) }}
-            {{ form_row(form.typeTicket) }}
-
-
-        <ul class="tickets" data-prototype="{{ form_widget(form.tickets.vars.prototype)|e('html_attr') }}">
-            {% for ticketField in form.tickets %}
-
-                {{ form_errors(ticketField) }}
-                {{ form_widget(ticketField) }}
-
-            {% endfor %}
-        </ul>
-
-            {{ form_row(form.email) }}
-        {{ form_end(form) }}
-
-    </div>
-
-
-
-
-
-
-
 {% endblock %}

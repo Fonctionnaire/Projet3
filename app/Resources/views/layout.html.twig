@@ -49,6 +49,9 @@
 
 
     <script>
+
+        // CONFIGURATION DU DATEPICKER
+
         $.datepicker.regional['fr'] = {
             closeText: 'Fermer',
             prevText: 'Précédent',
@@ -68,14 +71,132 @@
 
         $.datepicker.setDefaults($.datepicker.regional['fr']);
 
+        // ON DESACTIVE LA SELECTION DES MARDI, DU 1er MAI, 1er NOVEMBRE ET 25 DECEMBRE
+        function disableDayAndDates(date) {
+
+            var m = date.getMonth();
+            var d = date.getDay();
+            var currDate = date.getDate();
+
+            if (d == 2) {
+
+                return [false] ;
+
+            }else if (currDate == 1 && (m == 10 || m == 4)){
+                return [false];
+            }else if (currDate == 25 && m == 11){
+                return [false];
+            }
+            else {
+
+                return [true] ;
+            }
+
+        }
+
+        var now = new Date();
+        var annee   = now.getFullYear();
+        var mois    = ('0'+(now.getMonth() + 1 )).slice(-2);
+        var jour    = ('0'+now.getDate()   ).slice(-2);
+        var heure   = ('0'+now.getHours()  ).slice(-2);
+
+        var jourActuel = jour + "/" + mois + "/" + annee;
+
+        var ticketOptionDelete = $(".typeTicket option[value='1']");
+        var formSelect = $(".typeTicket option[value='0']");
+
         $(function() {
+
             $( ".datepicker").datepicker({
+                minDate: 0,
                 changeMonth: true,
-                changeYear: true
+                changeYear: true,
+                beforeShowDay: disableDayAndDates,
+                // ON RECUP LA DATE CHOISIE POUR ENLEVER LA JOUR. COMPL. SI = JOUR MEME et 14h +
+                onSelect: function(dateText, inst){
+                    $('#date').val(dateText);
+
+                    if (dateText == jourActuel && heure >= 14 && heure < 24){
+                        ticketOptionDelete.detach();
+                        console.log(dateText);
+                    }else{
+                        ticketOptionDelete.insertBefore(formSelect);
+                        console.log(dateText);
+                    }
+                }
             });
         });
+
+        //=======================================================================
+
+
     </script>
 
+
+    <!-- =================================================== -->
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            var $container = $('div#appbundle_commande_tickets');
+
+            var index = $container.find(':input').length;
+
+            $('#add_ticket').click(function(e) {
+                addTicket($container);
+
+                e.preventDefault();
+                return false;
+            });
+
+
+            if (index == 0 && index <= 30) {
+                addTicket($container);
+            } else {
+
+                $container.children('div').each(function() {
+                    addDeleteLink($(this));
+                });
+            }
+
+
+            function addTicket($container) {
+                // Dans le contenu de l'attribut « data-prototype », on remplace :
+                // - le texte "__name__label__" qu'il contient par le label du champ
+                // - le texte "__name__" qu'il contient par le numéro du champ
+                var template = $container.attr('data-prototype')
+                        .replace(/__name__label__/g,'<hr>' + 'Billet')
+                        .replace(/__name__/g,        index)
+                    ;
+
+                var $prototype = $(template);
+
+                if (index >= 1){
+                    addDeleteLink($prototype);
+                }
+
+
+                $container.append($prototype);
+
+                index++;
+            }
+
+
+            function addDeleteLink($prototype) {
+
+                var $deleteLink = $('<a href="#" class=" suppr btn btn-danger">Supprimer</a>');
+
+                $prototype.append($deleteLink);
+
+                $deleteLink.click(function(e) {
+                    $prototype.remove();
+
+                    e.preventDefault();
+                    return false;
+                });
+            }
+        });
+    </script>
 {% endblock %}
 </body>
 </html>

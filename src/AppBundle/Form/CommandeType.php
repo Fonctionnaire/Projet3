@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -9,30 +10,36 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CommandeType extends AbstractType
 {
+
+
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateVisite', DateType::class, array(
 
+            ->add('dateVisite', DateType::class, array(
+                'widget' => 'single_text',
                 'html5' => false,
                 'label' => 'Date de votre visite',
                 'attr' => ['class' => 'datepicker'],
                 'placeholder' => 'Cliquez pour choisir une date',
-                'format' => 'dd-MM-yy',
+                'format' => 'dd-mm-yyyy',
             ))
             ->add('typeTicket', ChoiceType::class, array(
                 'choices' => array(
                     'Journée complète' => true,
                     'Demi-journée : à partir de 14 heure' => false,
                 ),
-                'label' => 'Choisissez le type de billet que vous souhaitez'
+                'attr' => ['class' => 'typeTicket'],
+                'label' => 'Choisissez le type de billet que vous souhaitez',
             ))
             ->add('tickets', CollectionType::class, array(
                 'entry_type' => TicketType::class,
@@ -44,7 +51,12 @@ class CommandeType extends AbstractType
                 'label' => 'Votre adresse Email',
                 'attr' => ['placeholder' => 'jeandupond@gmail.com']
             ))
-            ->add('Valider', SubmitType::class);
+            ->add('valider', SubmitType::class);
+
+
+
+
+
     }
 
     /**

@@ -20,6 +20,7 @@ body
     align-items: center;
     background-color: rgba(26, 26, 26, 0.90);
     margin-bottom: 25px;
+    margin-left: 2px;
 }
 
 #titre_header
@@ -44,14 +45,22 @@ body
     text-decoration: underline;
     font-size: 1.5em;
     margin-bottom: 25px;
+    margin-left: 15px;
 }
 
 #message_accueil p
 {
     padding-bottom: 15px;
+    margin-left: 15px;
+
 }
 
 /* FORMULAIRE */
+
+.datepicker
+{
+    width: 200px;
+}
 
 #titre_formulaire
 {
@@ -59,22 +68,184 @@ body
     background: grey;
     text-align: center;
     padding-top: 10px;
+    font-weight: bold;
 }
 
 .formulaire
 {
     background-color: rgba(255, 255, 255, 0.90);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
 }
 
-#titre_billet
+.date-type
+{
+    margin:25px;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.conteneurFormTicket
+{
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.text-oblig-Un
+{
+    font-style: italic;
+    font-size: 0.9em;
+    margin: 15px;
+}
+
+.text-oblig-deux
+{
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+
+
+#add_ticket
+{
+    margin-bottom: 25px;
+}
+
+#text-tarifReduit
+{
+    font-style: italic;
+    font-size: 0.9em;
+
+    margin: 15px;
+}
+
+.form_tickets
+{
+    width: 100%;
+}
+
+
+.nom{
+    margin-right: 15px;
+    margin-top: 15px;
+
+
+}
+
+.prenom
+{
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+.dateNaissance
+{
+    margin-right: 15px;
+}
+
+.select{
+    width: 100px;
+    margin-top: 15px;
+}
+
+.checkbox{
+
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.titreTicket
 {
     height: 35px;
     background: grey;
     text-align: center;
     padding-top: 10px;
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-weight: bold;
 }
 
+.suppr
+{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+hr{
+    height: 2px;
+    background-color: black;
+}
+
+
+#email
+{
+    margin-bottom: 30px;
+    margin-top: 25px;
+}
+
+#text-email
+{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+
 /* ============================================== */
+
+/* RECAP DE LA COMMANDE */
+
+#page_recap
+{
+    height: 100%;
+}
+
+#recapCommande p{
+    margin-top: 15px;
+    margin-left: 10%;
+}
+
+#titreRecap
+{
+    font-weight: bold;
+    font-size: 1.4em;
+    margin-left: 10%;
+    margin-bottom: 30px;
+}
+
+#montantTotal
+{
+    margin-top: 25px;
+    margin-bottom: 40px;
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-left: 60%;
+}
+
+#checkCgv
+{
+    margin-left: 35%;
+    margin-bottom: 40px;
+    margin-right: 15px;
+}
+
+#BoutonPaiement
+{
+    display: flex;
+    margin-left: 35%;
+    margin-bottom: 40px;
+}
+
+#lienRetour
+{
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+
+/* ================================================ */
 
 /* FOOTER */
 footer
