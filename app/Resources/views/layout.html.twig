@@ -15,7 +15,7 @@
         <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
     {% endblock %}
 </head>
-<body>
+<body data-spy="scroll" data-target="#ancreHoraire">
     <div class="container">
         <header >
             <div class=" col-md-12" id="header">
@@ -77,7 +77,7 @@
             var m = date.getMonth();
             var d = date.getDay();
             var currDate = date.getDate();
-
+            var heure   = ('0'+now.getHours()  ).slice(-2);
             if (d == 2) {
 
                 return [false] ;
@@ -85,6 +85,10 @@
             }else if (currDate == 1 && (m == 10 || m == 4)){
                 return [false];
             }else if (currDate == 25 && m == 11){
+                return [false];
+            }
+            else if (currDate && heure >= 18)
+            {
                 return [false];
             }
             else {
@@ -134,6 +138,8 @@
 
 
     <!-- =================================================== -->
+
+    <!-- AJOUT DE TICKET -->
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -196,6 +202,44 @@
                 });
             }
         });
+
+        // ======================================
+
+        // SCROLLSPY VERS HORAIRES ET TARIFS
+
+        $(function () {
+            $('a').on('click', function(e) {
+                e.preventDefault();
+                var hash = this.hash;
+                $('html, body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000, function(){
+                    window.location.hash = hash;
+                });
+            });
+        });
+
+        // =================================
+
+        // DISABLE SUR LE BOUTON STRIPE SI LA CHECKBOX CGV N'EST PAS CHECKED
+
+        document.getElementsByClassName("stripe-button-el")[0].disabled=true;
+
+        $(function() {
+            $('#checkCgv').click(function() {
+                if ($('#checkCgv:checked').length > 0) {
+
+                    document.getElementsByClassName("stripe-button-el")[0].disabled=false;
+                } else {
+                    document.getElementsByClassName("stripe-button-el")[0].disabled=true;
+                }
+            });
+        });
+
+
+
+
+
     </script>
 {% endblock %}
 </body>

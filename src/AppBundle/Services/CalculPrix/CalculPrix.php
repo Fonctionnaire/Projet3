@@ -3,7 +3,7 @@
 namespace AppBundle\Services\CalculPrix;
 
 
-use AppBundle\Entity\Commande;
+
 use AppBundle\Entity\Ticket;
 use AppBundle\Entity\Prix;
 use Doctrine\ORM\EntityManagerInterface;

@@ -7,18 +7,51 @@
         <h2 id="titreRecap">Récapituatif de votre commande</h2>
 
         <div id="recapCommande">
-            <p>Jours de la visite : {{ cActu.dateVisite|date('d/m/y') }} </p>
+            <p>Jours de la visite : {{ cActu.commande.dateVisite|date('d/m/y') }} </p>
             <p>Type de billet :
-                {% if cActu.typeTicket == true %}
+                {% if cActu.commande.typeTicket == true %}
                     Journée entière
                     {% else %}
-                    Demi-journée (A partir de 14 heure)
+                    Demi-journée (à partir de 14 heure)
                 {% endif %}
             </p>
-            <p>Nombre de billets : {{ cActu.nbTickets|length }} </p>
+            <p>Nombre de billets : {{ cActu.commande.tickets|length }} </p>
         </div>
+
+        <table id="tableauRecap">
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>Prix du billet</th>
+                <th>Réduction ?</th>
+            </tr>
+
+            {% for ticket in listTickets %}
+                <tr>
+                    <td>{{ ticket.nom }}</td>
+                    <td>{{ ticket.prenom }}</td>
+                    <td>{{ ticket.dateNaissance|date('d/m/Y') }}</td>
+                    <td>
+                        {% if cActu.commande.typeTicket == true %}
+                            {{ ticket.prix }} €
+                        {% else %}
+                            {{ ticket.prix / 2 }} €
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if ticket.reduction == true %}
+                            Oui
+                        {% else %}
+                            Non
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
         <div id="montantTotal">
-            <p>Montant total : {{ cActu.prixTotal }} € </p>
+            <p>Montant total : {{ cActu.commande.prixTotal }} € </p>
         </div>
 
         <form>
@@ -27,11 +60,11 @@
 
         <div id="BoutonPaiement">
 
-        <form action="{{ path('validation', {'id': cActu.id}) }}" method="POST">
+        <form action="{{ path('validation', {'id': cActu.commande.id}) }}" method="POST">
             <script
                     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                     data-key="pk_test_FBb3IsOVovXnzhLyIt7UlKAS"
-                    data-amount="{{ cActu.prixTotal * 100 }}"
+                    data-amount="{{ cActu.commande.prixTotal * 100 }}"
                     data-label="Procéder au paiement"
                     data-name="Musée du Louvre"
                     data-description="Commande de billet(s)"
@@ -39,13 +72,17 @@
                     data-billing-address="true"
                     data-locale="auto"
                     data-allow-remember-me="false"
-                    data-email="{{ cActu.email }}"
+                    data-email="{{ cActu.commande.email }}"
                     data-currency="eur">
+
+
+
+
             </script>
         </form>
 
 
-            <a href="{{ path('homepage') }}" id="lienRetour"><p>Retour au choix des billets</p></a>
+            <a href="{{ path('homepage', {'id': cActu.commande.id}) }}" id="lienRetour"><p>Retour au choix des billets</p></a>
         </div>
     </div>
 {% endblock %}

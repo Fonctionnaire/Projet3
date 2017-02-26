@@ -10,4 +10,10 @@ services:
           - "@doctrine.orm.entity_manager"
           - "@service_container"
 
-
+  app.max_ticket_by_day:
+      class: AppBundle\Validator\Constraints\MaxTicketsByDay
+      arguments:
+          - "@doctrine.orm.entity_manager"
+          - "@service_container"
+      tag:
+        - { name : validator.constraint_validator }

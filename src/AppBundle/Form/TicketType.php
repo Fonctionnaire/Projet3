@@ -39,7 +39,7 @@ class TicketType extends AbstractType
             ->add('dateNaissance', BirthdayType::class, array(
                 'label' => 'Date de naissance',
                 'format' => 'dd-MM-yyyy',
-                'attr' => ['class' => 'dateNaissance']
+                'attr' => ['class' => 'dateNaissance'],
             ))
             ->add('pays', CountryType::class, array('data' => 'FR',
                 'label' => false,

@@ -55,6 +55,12 @@ body
 
 }
 
+#ancreHoraire
+{
+    background-color: rgba(255, 255, 255, 0.90);
+    padding: 15px;
+}
+
 /* FORMULAIRE */
 
 .datepicker
@@ -105,8 +111,6 @@ body
     font-style: italic;
     font-size: 0.9em;
 }
-
-
 
 #add_ticket
 {
@@ -192,6 +196,25 @@ hr{
     font-weight: bold;
 }
 
+#horaireTarif
+{
+    background-color: rgba(168, 0, 0, 0.90);
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid black;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: white;
+}
+
+#horaireTarif h4
+{
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
 
 /* ============================================== */
 
@@ -213,6 +236,30 @@ hr{
     font-size: 1.4em;
     margin-left: 10%;
     margin-bottom: 30px;
+}
+
+#tableauRecap
+{
+    border-collapse: collapse;
+    margin: 25px;
+    width: 90%;
+}
+
+#tableauRecap td
+{
+    border: 1px solid black;
+    padding:5px;
+    text-align: center;
+}
+
+#tableauRecap th
+{
+    border: 1px solid black;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 5px;
+    text-align: center;
+    background-color: rgba(66, 150, 179, 0.70);
 }
 
 #montantTotal
@@ -246,6 +293,42 @@ hr{
 
 
 /* ================================================ */
+
+/* PAGE DE CONFIRMATION */
+
+#confirmation
+{
+    background-color: rgba(255, 255, 255, 0.90);
+}
+
+#confirmation h1
+{
+    font-weight: bold;
+    font-size: 1.4em;
+    margin-left: 15px;
+    margin-bottom: 25px;
+    color: limegreen;
+}
+
+#confirmation p
+{
+    margin: 15px;
+}
+
+#lienConfirmation
+{
+    display: flex;
+    margin-left: 35%;
+    margin-top: 35px;
+    margin-bottom: 20px;
+
+}
+
+#retourAccueil
+{
+    margin-top: -12px;
+}
+
 
 /* FOOTER */
 footer

@@ -1,0 +1,16 @@
+{% extends "::layout.html.twig" %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div id="confirmation" class="container">
+        <h1>VOTRE ACHAT A BIEN ÉTÉ VALIDÉ</h1>
+        <p>Vous allez recevoir votre / vos billet(s) à l'adresse e-mail renseignée.</p>
+        <p>Le musée du Louvre vous remercie et vous souhaite une agréable visite.</p>
+
+        <div id="lienConfirmation">
+            <a href="{{ path("homepage") }}"><button>Effectuer un nouvel achat</button></a>
+            <a href="http://www.louvre.fr/" id="retourAccueil"><p>Retour à la page d'accueil</p></a>
+        </div>
+    </div>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ticket
@@ -21,14 +22,12 @@ class Ticket
      */
     private $id;
 
-
-
-
-
     /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
+     * @Assert\Length(min=2, minMessage="{{ limit }} caractères minimum.")
+     * @Assert\NotBlank()
      */
     private $nom;
 
@@ -36,6 +35,8 @@ class Ticket
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255)
+     * @Assert\Length(min=2, minMessage="{{ limit }} caractères minimum.")
+     * @Assert\NotBlank()
      */
     private $prenom;
 

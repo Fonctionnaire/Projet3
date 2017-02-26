@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <meta charset="utf-8">
+</head>
+<body>
+    <img src="{{ absolute_url(asset('images/tn_louvre-530058_1280.jpg')) }}" name="Logo Louvre">
+    <h1>Le musée du Louvre</h1>
+    <h3>Vous trouverez ci-dessous votre/vos billet(s)</h3>
+
+    <p>Cet e-mail est à imprimer et à présenter lors de votre visite du musée du Louvre.</p>
+    <p>En cas de billet(s) à tarif réduit, un justificatif (carte étudiant, milaitre, etc) vous sera également demandé.</p>
+
+    <p>Jour de votre visite : {{ commande.dateVisite|date('d/m/Y') }}</p>
+    <p>Prix total de votre commande :{{ commande.prixTotal }} €</p>
+    <p>Type de billet :
+        {% if commande.typeTicket == true %}
+            Journée entière
+        {% else %}
+            Demi-journée (A partir de 14 heure)
+        {% endif %}
+    </p>
+
+    <p>Vos billets :</p>
+
+    <table id="tableauRecap">
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Date de naissance</th>
+            <th>Prix du billet</th>
+            <th>Réduction ?</th>
+        </tr>
+
+        {% for ticket in listTickets %}
+            <tr>
+                <td>{{ ticket.nom }}</td>
+                <td>{{ ticket.prenom }}</td>
+                <td>{{ ticket.dateNaissance|date('d/m/Y') }}</td>
+                <td>
+                        {% if commande.typeTicket == true %}
+                            {{ ticket.prix }} €
+                        {% else %}
+                            {{ ticket.prix / 2 }} €
+                        {% endif %}
+                </td>
+                <td>
+                    {% if ticket.reduction == true %}
+                        Oui
+                    {% else %}
+                        Non
+                    {% endif %}
+                </td>
+
+            </tr>
+            <hr>
+        {% endfor %}
+    </table>
+
+    <p>Le musée du Louvre vous remercie et vous souhaite une agréable visite.</p>
+
+</body>
+</html>
+

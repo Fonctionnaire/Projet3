@@ -31,7 +31,7 @@ class CommandeType extends AbstractType
                 'label' => 'Date de votre visite',
                 'attr' => ['class' => 'datepicker'],
                 'placeholder' => 'Cliquez pour choisir une date',
-                'format' => 'dd-mm-yyyy',
+                'format' => 'dd-MM-yyyy',
             ))
             ->add('typeTicket', ChoiceType::class, array(
                 'choices' => array(
