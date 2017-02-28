@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as AcmeAssert;
 
 /**
  * Commande
@@ -59,15 +60,20 @@ class Commande
     /**
      * @var Ticket[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ticket", mappedBy="commande", cascade={"persist"})
+     * @AcmeAssert\MaxTicketsByDay
      */
     private $tickets;
 
+    /**
+     * @var string
+     * @ORM\Column(name="codeResa", type="string", length=255)
+     */
+    private $codeResa;
 
 
     public function __construct()
     {
         $this->date = new \Datetime();
-        //$this->tickets = new ArrayCollection();
 
     }
 
@@ -115,7 +121,7 @@ class Commande
      */
     public function setDateVisite($dateVisite)
     {
-        dump($dateVisite);
+
         $this->dateVisite = $dateVisite;
 
         return $this;
@@ -189,9 +195,9 @@ class Commande
     {
         $prixTickets = 0;
         foreach ($this->tickets as $ticket){
-            dump($ticket);
+
            $prixTickets += $ticket->getPrix();
-           dump($ticket);
+
         }
 
         if($this->getTypeTicket() == false){
@@ -247,4 +253,23 @@ class Commande
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getCodeResa()
+    {
+        return $this->codeResa;
+    }
+
+    /**
+     * @param string $codeResa
+     */
+    public function setCodeResa($codeResa)
+    {
+        $this->codeResa = $codeResa;
+
+        return $this;
+    }
+
 }

@@ -21,49 +21,47 @@ class PlatformController extends Controller
     {
         $ticket = new Ticket();
         $commande = new Commande();
-        //$commande->setEmail('test@test.com');
 
-       // $commande->addTicket($ticket);
 
         $form = $this->createForm(CommandeType::class, $commande);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-dump($commande);
-            // BOUCLE FOREACH
+
 
             $listTickets = $commande->getTickets();
             foreach ($listTickets as $ticket)
             {
                 $prixTicket = $this->get("app.calculprix")->prixTotal($ticket);
 
-                dump($commande->getPrixTotal());
-
-                dump($ticket);
-
                 $ticket->setPrix($prixTicket);
-
-
-
-                dump($commande->getPrixTotal());
 
             }
 
-            dump($commande->getPrixTotal());
-            dump($commande);
-            dump($ticket);
-            dump($commande->getTickets());
+            $m=microtime(true);
+            $codeReservation = sprintf("%8x%05x",floor($m),($m-floor($m))*1000000);
+
             $em = $this->getDoctrine()->getManager();
 
-// ====================================================
+
+            $codes = $em->getRepository('AppBundle:Commande')->findOneByCodeResa($codeReservation);
+
+
+            while ($codes == $codeReservation)
+            {
+
+
+                $codeReservation = sprintf("%8x%05x",floor($m),($m-floor($m))*1000000);
+
+            }
+
+
+            $commande->setCodeResa($codeReservation);
+
+
             $em->persist($commande);
             $em->persist($ticket);
 
             $em->flush();
-
-
-
-            dump($ticket);
-            dump($commande);
 
             return $this->redirectToRoute('recap', array('id' => $commande->getId()));
         }
@@ -88,13 +86,12 @@ dump($commande);
         ->getRepository('AppBundle:Ticket')
         ->findBy(array('commande' => $commande));
 
-        dump($listTickets);
         $cAtcu = array(
             'commande' => $commande,
 
         );
-        dump($cAtcu);
 
+        dump($cAtcu);
 
         return $this->render('::recap.html.twig', array('cActu' => $cAtcu,
             'listTickets' => $listTickets));
@@ -118,14 +115,13 @@ dump($commande);
             ->getRepository('AppBundle:Ticket')
             ->findBy(array('commande' => $commande));
 
-        dump($commande);
-        $total = $commande->getPrixTotal();
-        dump($total);
 
-        // Create a charge: this will charge the user's card
+        $total = $commande->getPrixTotal();
+
+
         try {
             $charge = \Stripe\Charge::create(array(
-                "amount" => $total * 100, // Amount in cents
+                "amount" => $total * 100,
                 "currency" => "eur",
                 "source" => $token,
                 "description" => "Paiement Stripe"
@@ -155,7 +151,7 @@ dump($commande);
 
             $this->addFlash("error","Une erreur s'est produite. Veuillez essayer à nouveau");
             return $this->redirectToRoute("recap", array('id' => $commande->getId()));
-            // The card has been declined
+
         }
 
 

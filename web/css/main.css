@@ -19,8 +19,6 @@ body
     display: flex;
     align-items: center;
     background-color: rgba(26, 26, 26, 0.90);
-    margin-bottom: 25px;
-    margin-left: 2px;
 }
 
 #titre_header
@@ -188,6 +186,13 @@ hr{
 {
     margin-bottom: 30px;
     margin-top: 25px;
+    text-align: center;
+}
+
+#email input
+{
+    width: 300px;
+    margin-left: 38%;
 }
 
 #text-email
@@ -223,6 +228,7 @@ hr{
 #page_recap
 {
     height: 100%;
+    padding-top: 25px;
 }
 
 #recapCommande p{
@@ -242,7 +248,7 @@ hr{
 {
     border-collapse: collapse;
     margin: 25px;
-    width: 90%;
+    width: 60%;
 }
 
 #tableauRecap td
@@ -303,6 +309,7 @@ hr{
 
 #confirmation h1
 {
+    padding-top: 15px;
     font-weight: bold;
     font-size: 1.4em;
     margin-left: 15px;
@@ -380,3 +387,129 @@ footer p
 
 /* =============================== */
 
+/* MEDIA QUIERIES */
+
+@media screen and (max-width: 720px){
+
+    #message_accueil p
+    {
+        font-size: 0.8em;
+    }
+
+    #titre_formulaire
+    {
+        font-size: 0.8em;
+    }
+
+    .date-type
+    {
+        display: block;
+    }
+
+    .titreTicket
+    {
+        font-size: 0.8em;
+    }
+
+    .text-oblig-Un
+    {
+        font-size: 0.8em;
+    }
+
+    .text-oblig-deux
+    {
+        font-size: 0.8em;
+    }
+
+    #text-tarifReduit
+    {
+        font-size: 0.8em;
+    }
+
+
+
+
+    #email
+    {
+        text-align: inherit;
+        margin-left: 15px;
+    }
+
+    #email input
+    {
+        width: 300px;
+        margin-left: 0;
+
+    }
+
+    #horaireTarif div
+    {
+        font-size: 0.8em;
+    }
+
+    #titreRecap
+    {
+
+        font-size: 1.2em;
+    }
+
+    #tableauRecap th
+    {
+        font-size: 0.8em;
+    }
+
+    #tableauRecap td
+    {
+        font-size: 0.7em;
+    }
+
+    #montantTotal
+    {
+
+        font-size: 1em;
+        margin-left: 50%;
+    }
+
+    #checkCgv
+    {
+        margin-left: 15px;
+        font-size: 0.7em;
+    }
+
+    #BoutonPaiement
+    {
+
+        margin-left: 10%;
+        margin-bottom: 40px;
+    }
+
+    #lienRetour
+    {
+
+        font-size: 0.7em;
+    }
+
+    /* ================== */
+
+    #confirmation h1
+    {
+        font-size: 1.1em;
+    }
+
+    #confirmation p
+    {
+        font-size: 0.8em;
+    }
+
+    #lienConfirmation
+    {
+        margin-left: 15%;
+        font-size: 0.8em;
+    }
+
+    #retourAccueil
+    {
+        font-size: 0.8em;
+    }
+
+}

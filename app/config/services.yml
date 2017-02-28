@@ -8,12 +8,10 @@ services:
       class: AppBundle\Services\CalculPrix\CalculPrix
       arguments:
           - "@doctrine.orm.entity_manager"
-          - "@service_container"
 
-  app.max_ticket_by_day:
-      class: AppBundle\Validator\Constraints\MaxTicketsByDay
+  app.max_tickets_by_day_validator:
+      class: AppBundle\Validator\Constraints\MaxTicketsByDayValidator
       arguments:
           - "@doctrine.orm.entity_manager"
-          - "@service_container"
-      tag:
+      tags:
         - { name : validator.constraint_validator }

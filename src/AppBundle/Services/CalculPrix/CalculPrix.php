@@ -29,7 +29,6 @@ class CalculPrix extends Controller
             $dateDeNaissance = $ticket->getDateNaissance()->diff(new \DateTime());
 
             $age = $dateDeNaissance->y;
-            dump($age);
 
             // ON ATTRIBUT UN PRIX EN FONCTION DE L'AGE ET D'UNE REDUCTION
 
@@ -59,8 +58,6 @@ class CalculPrix extends Controller
                     break;
 
             }
-
-            //$retourPrix = $ticket->setPrix($prixTicket);
 
             return $prixTicket;
 

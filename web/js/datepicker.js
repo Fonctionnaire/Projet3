@@ -25,7 +25,12 @@ function disableDayAndDates(date) {
     var m = date.getMonth();
     var d = date.getDay();
     var currDate = date.getDate();
+
     var heure   = ('0'+now.getHours()  ).slice(-2);
+
+
+
+
     if (d == 2) {
 
         return [false] ;
@@ -33,10 +38,6 @@ function disableDayAndDates(date) {
     }else if (currDate == 1 && (m == 10 || m == 4)){
         return [false];
     }else if (currDate == 25 && m == 11){
-        return [false];
-    }
-    else if (currDate && heure >= 18)
-    {
         return [false];
     }
     else {
@@ -57,10 +58,12 @@ var jourActuel = jour + "/" + mois + "/" + annee;
 var ticketOptionDelete = $(".typeTicket option[value='1']");
 var formSelect = $(".typeTicket option[value='0']");
 
+var timeCond = now.getHours() >= 18;
+
 $(function() {
 
     $( ".datepicker").datepicker({
-        minDate: 0,
+        minDate: timeCond ? 1 : 0,
         changeMonth: true,
         changeYear: true,
         beforeShowDay: disableDayAndDates,
@@ -71,7 +74,8 @@ $(function() {
             if (dateText == jourActuel && heure >= 14 && heure < 24){
                 ticketOptionDelete.detach();
                 console.log(dateText);
-            }else{
+            }
+            else{
                 ticketOptionDelete.insertBefore(formSelect);
                 console.log(dateText);
             }

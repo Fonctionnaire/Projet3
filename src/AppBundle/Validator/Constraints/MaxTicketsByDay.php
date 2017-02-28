@@ -2,30 +2,19 @@
 
 namespace AppBundle\Validator\Constraints;
 
-
-
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
-use AppBundle\Entity\Commande;
-use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * @Annotation
- */
-class MaxTicketsByDay extends ConstraintValidator
+* @Annotation
+*/
+class MaxTicketsByDay extends Constraint
 {
-    protected  $em;
 
-    public function __contruct(EntityManagerInterface $em)
+    public $message = 'Le maximum de billets vendu pour ce jour a été atteind';
+
+
+    public function validatedBy()
     {
-        $this->em = $em;
-    }
-
-    public function validate($value, Constraint $constraint)
-    {
-
-
-
+        return get_class($this).'Validator';
     }
 }
