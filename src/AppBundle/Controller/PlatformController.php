@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
 
@@ -16,6 +17,7 @@ class PlatformController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request)
     {
@@ -26,12 +28,10 @@ class PlatformController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
-
             $listTickets = $commande->getTickets();
             foreach ($listTickets as $ticket)
             {
                 $prixTicket = $this->get("app.calculprix")->prixTotal($ticket);
-
                 $ticket->setPrix($prixTicket);
             }
 
@@ -39,7 +39,6 @@ class PlatformController extends Controller
             $codeReservation = sprintf("%8x%05x",floor($m),($m-floor($m))*1000000);
 
             $em = $this->getDoctrine()->getManager();
-
             $codes = $em->getRepository('AppBundle:Commande')->findOneByCodeResa($codeReservation);
 
             while ($codes == $codeReservation)
@@ -63,6 +62,7 @@ class PlatformController extends Controller
     /**
      * @Route("/recapitulatif/{id}", name="recap")
      * @ParamConverter("ticket", options={"mapping": {"commande_id": "commande"}})
+     * @Method({"GET", "POST"})
      */
     public function recapAction($id)
     {
@@ -137,6 +137,7 @@ class PlatformController extends Controller
 
     /**
      * @Route("/confirmation/{id}", name="confirmation")
+     * @Method({"GET", "POST"})
      */
     public function confirmationAction($id)
     {

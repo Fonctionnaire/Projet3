@@ -72,6 +72,7 @@ swiftmailer:
     #port:       %port%
     #encryption: %mailer_encryption%
 
+
 stof_doctrine_extensions:
     orm:
         default:
