@@ -23,29 +23,23 @@ class PlatformController extends Controller
     {
         $ticket = new Ticket();
         $commande = new Commande();
-
         $form = $this->createForm(CommandeType::class, $commande);
-
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-
             $listTickets = $commande->getTickets();
             foreach ($listTickets as $ticket)
             {
                 $prixTicket = $this->get("app.calculprix")->prixTotal($ticket);
                 $ticket->setPrix($prixTicket);
             }
-
             $m=microtime(true);
             $codeReservation = sprintf("%8x%05x",floor($m),($m-floor($m))*1000000);
 
             $em = $this->getDoctrine()->getManager();
             $codes = $em->getRepository('AppBundle:Commande')->findOneByCodeResa($codeReservation);
-
             while ($codes == $codeReservation)
             {
                 $codeReservation = sprintf("%8x%05x",floor($m),($m-floor($m))*1000000);
             }
-
             $commande->setCodeResa($codeReservation);
             $em->persist($commande);
             $em->persist($ticket);
@@ -53,8 +47,7 @@ class PlatformController extends Controller
 
             return $this->redirectToRoute('recap', array('id' => $commande->getId()));
         }
-        return $this->render('::index.html.twig', array(
-            'form' => $form->createView(),
+        return $this->render('::index.html.twig', array('form' => $form->createView(),
         ));
     }
 
@@ -62,7 +55,7 @@ class PlatformController extends Controller
     /**
      * @Route("/recapitulatif/{id}", name="recap")
      * @ParamConverter("ticket", options={"mapping": {"commande_id": "commande"}})
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      */
     public function recapAction($id)
     {
@@ -137,7 +130,7 @@ class PlatformController extends Controller
 
     /**
      * @Route("/confirmation/{id}", name="confirmation")
-     * @Method({"GET", "POST"})
+     * @Method({"GET"})
      */
     public function confirmationAction($id)
     {
