@@ -37,11 +37,11 @@ class CalculPrix extends Controller
             $reduction = $ticket->getReduction();
             switch (true) {
 
-                case ($age >= 12 && $age < 60 && $reduction == false):
+                case ($age >= 12 && $age < 60 && $reduction === false):
                     $prixTicket = $prix->getNormal();
                     break;
 
-                case ($age >= 60 && $reduction == false):
+                case ($age >= 60 && $reduction === false):
                     $prixTicket = $prix->getSenior();
                     break;
 

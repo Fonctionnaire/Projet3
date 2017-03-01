@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Commande;
 use AppBundle\Entity\Ticket;
-use AppBundle\Form\CommandeType;
+use AppBundle\Form\Type\CommandeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +22,6 @@ class PlatformController extends Controller
         $ticket = new Ticket();
         $commande = new Commande();
 
-
         $form = $this->createForm(CommandeType::class, $commande);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
@@ -34,7 +33,6 @@ class PlatformController extends Controller
                 $prixTicket = $this->get("app.calculprix")->prixTotal($ticket);
 
                 $ticket->setPrix($prixTicket);
-
             }
 
             $m=microtime(true);
@@ -42,21 +40,15 @@ class PlatformController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-
             $codes = $em->getRepository('AppBundle:Commande')->findOneByCodeResa($codeReservation);
 
 
             while ($codes == $codeReservation)
             {
-
-
                 $codeReservation = sprintf("%8x%05x",floor($m),($m-floor($m))*1000000);
-
             }
 
-
             $commande->setCodeResa($codeReservation);
-
 
             $em->persist($commande);
             $em->persist($ticket);
@@ -91,8 +83,6 @@ class PlatformController extends Controller
 
         );
 
-        dump($cAtcu);
-
         return $this->render('::recap.html.twig', array('cActu' => $cAtcu,
             'listTickets' => $listTickets));
     }
@@ -102,22 +92,18 @@ class PlatformController extends Controller
     /**
      * @Route("/validation/{id}", name="validation", methods="POST")
      */
-    public function savePaiementAction($id)
+    public function savePaiementAction(Request $request, $id)
     {
         \Stripe\Stripe::setApiKey("sk_test_tIN6ASnQYiwCF2nnehCiOPIl");
-// Get the credit card details submitted by the form
-        $token = $_POST['stripeToken'];
 
+       //$token = $_POST['stripeToken'];
+        $token = $request->request->get('stripeToken');
         $em = $this->getDoctrine()->getManager();
         $commande = $em->getRepository('AppBundle:Commande')->findOneById($id);
 
-        $listTickets = $em
-            ->getRepository('AppBundle:Ticket')
-            ->findBy(array('commande' => $commande));
-
+        $listTickets = $em->getRepository('AppBundle:Ticket')->findBy(array('commande' => $commande));
 
         $total = $commande->getPrixTotal();
-
 
         try {
             $charge = \Stripe\Charge::create(array(
@@ -151,10 +137,7 @@ class PlatformController extends Controller
 
             $this->addFlash("error","Une erreur s'est produite. Veuillez essayer à nouveau");
             return $this->redirectToRoute("recap", array('id' => $commande->getId()));
-
         }
-
-
     }
 
     /**
@@ -168,9 +151,5 @@ class PlatformController extends Controller
 
         return $this->render("::confirmation.html.twig", array('id' => $commande->getId()));
     }
-
-
-
-
 
 }
