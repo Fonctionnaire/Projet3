@@ -42,22 +42,18 @@ class PlatformController extends Controller
 
             $codes = $em->getRepository('AppBundle:Commande')->findOneByCodeResa($codeReservation);
 
-
             while ($codes == $codeReservation)
             {
                 $codeReservation = sprintf("%8x%05x",floor($m),($m-floor($m))*1000000);
             }
 
             $commande->setCodeResa($codeReservation);
-
             $em->persist($commande);
             $em->persist($ticket);
-
             $em->flush();
 
             return $this->redirectToRoute('recap', array('id' => $commande->getId()));
         }
-
         return $this->render('::index.html.twig', array(
             'form' => $form->createView(),
         ));
@@ -96,7 +92,6 @@ class PlatformController extends Controller
     {
         \Stripe\Stripe::setApiKey("sk_test_tIN6ASnQYiwCF2nnehCiOPIl");
 
-       //$token = $_POST['stripeToken'];
         $token = $request->request->get('stripeToken');
         $em = $this->getDoctrine()->getManager();
         $commande = $em->getRepository('AppBundle:Commande')->findOneById($id);

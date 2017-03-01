@@ -49,7 +49,7 @@ class CalculPrix extends Controller
                     $prixTicket = $prix->getEnfant();
                     break;
 
-                case (true == $reduction):
+                case (true === $reduction):
                     $prixTicket = $prix->getReduit();
                     break;
 
