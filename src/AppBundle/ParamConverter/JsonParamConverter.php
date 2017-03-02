@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class JsonParamConverter implements ParamConverterInterface
 {
-    function supports(ParamConverter $configuration)
+    public function supports(ParamConverter $configuration)
     {
         // Si le nom de l'argument du contrôleur n'est pas "json", on n'applique pas le convertisseur
         if ('json' !== $configuration->getName()) {
@@ -19,7 +19,7 @@ class JsonParamConverter implements ParamConverterInterface
         return true;
     }
 
-    function apply(Request $request, ParamConverter $configuration)
+    public function apply(Request $request, ParamConverter $configuration)
     {
         // On récupère la valeur actuelle de l'attribut
         $json = $request->attributes->get('json');

@@ -12,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
-
 class PlatformController extends Controller
 {
     /**
@@ -31,15 +30,8 @@ class PlatformController extends Controller
                 $prixTicket = $this->get("app.calculprix")->prixTotal($ticket);
                 $ticket->setPrix($prixTicket);
             }
-            $m=microtime(true);
-            $codeReservation = sprintf("%8x%05x",floor($m),($m-floor($m))*1000000);
-
             $em = $this->getDoctrine()->getManager();
-            $codes = $em->getRepository('AppBundle:Commande')->findOneByCodeResa($codeReservation);
-            while ($codes == $codeReservation)
-            {
-                $codeReservation = sprintf("%8x%05x",floor($m),($m-floor($m))*1000000);
-            }
+            $codeReservation = $this->get("app.codeResa")->checkCodeResa();
             $commande->setCodeResa($codeReservation);
             $em->persist($commande);
             $em->persist($ticket);
@@ -47,8 +39,7 @@ class PlatformController extends Controller
 
             return $this->redirectToRoute('recap', array('id' => $commande->getId()));
         }
-        return $this->render('::index.html.twig', array('form' => $form->createView(),
-        ));
+        return $this->render('::index.html.twig', array('form' => $form->createView(),));
     }
 
 
@@ -90,29 +81,21 @@ class PlatformController extends Controller
         $commande = $em->getRepository('AppBundle:Commande')->findOneById($id);
 
         $listTickets = $em->getRepository('AppBundle:Ticket')->findBy(array('commande' => $commande));
-
         $total = $commande->getPrixTotal();
 
         try {
             $charge = \Stripe\Charge::create(array(
-                "amount" => $total * 100,
-                "currency" => "eur",
-                "source" => $token,
+                "amount" => $total * 100, "currency" => "eur", "source" => $token,
                 "description" => "Paiement Stripe"
             ));
 
-
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Votre commande')
+            $message = \Swift_Message::newInstance()->setSubject('Votre commande')
                 ->setFrom('commande@louvre.fr')
                 ->setTo($commande->getEmail())
-                ->setBody(
-                    $this->renderView(
+                ->setBody($this->renderView(
                         'Emails/ticket.html.twig',
                         array(
-                            'commande' => $commande,
-                            'listTickets' => $listTickets
-                        )
+                            'commande' => $commande, 'listTickets' => $listTickets)
                     ),
                     'text/html'
                 );
@@ -134,7 +117,6 @@ class PlatformController extends Controller
      */
     public function confirmationAction($id)
     {
-
         $em = $this->getDoctrine()->getManager();
         $commande = $em->getRepository('AppBundle:Commande')->findOneById($id);
 
