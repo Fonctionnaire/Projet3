@@ -20,9 +20,9 @@ class CodeResa extends Controller
         $m=microtime(true);
         $codeReservation = sprintf("%8x%05x",floor($m),($m-floor($m))*1000000);
 
-        $codes = $this->em->getRepository('AppBundle:Commande')->findOneByCodeResa($codeReservation);
+        $code = $this->em->getRepository('AppBundle:Commande')->findOneByCodeResa($codeReservation);
 
-        while ($codes == $codeReservation)
+        while ($code == $codeReservation)
         {
             $codeReservation = sprintf("%8x%05x",floor($m),($m-floor($m))*1000000);
         }

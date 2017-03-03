@@ -26,28 +26,17 @@ class MaxTicketsByDayValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
 
+        //dump($value);
 
-        $commandes = $this->em->getRepository('AppBundle:Commande')->findAll();
+// COmpter le nb ticket vendu pour un jour (dans le repository Ticket avec jointure avec Commande)
 
-        $nbTickets = 0;
-        foreach ($commandes as $commande)
-        {
-            $dateVisite =  $commande->getDateVisite();
-
-
-            $listTickets = $commande->getTickets();
-
-            $nbTickets += count($listTickets);
-
-        }
-
-        if ($dateVisite && $nbTickets >= 1000)
+       /* if ($dateVisite && $nbTickets >= 2)
         {
             $this->context
                 ->buildViolation($constraint->message)
                 ->setParameters(array('%string%' => $value))
                 ->addViolation();
-        }
+        }*/
 
 
 

@@ -84,7 +84,7 @@ class PlatformController extends Controller
         $total = $commande->getPrixTotal();
 
         try {
-            $charge = \Stripe\Charge::create(array(
+            \Stripe\Charge::create(array(
                 "amount" => $total * 100, "currency" => "eur", "source" => $token,
                 "description" => "Paiement Stripe"
             ));

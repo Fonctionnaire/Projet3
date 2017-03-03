@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Validator\Constraints as AcmeAssert;
+use AppBundle\Validator\Constraints as LouvreAssert;
 
 /**
  * Commande
@@ -35,6 +35,8 @@ class Commande
      *
      * @ORM\Column(name="dateVisite", type="date")
      * @Assert\NotNull()
+     * @Assert\Date()
+     * @LouvreAssert\MaxTicketsByDay()
      */
     private $dateVisite;
 
@@ -42,6 +44,7 @@ class Commande
      * @var bool
      *
      * @ORM\Column(name="typeTicket", type="boolean")
+     * @Assert\NotBlank()
      */
     private $typeTicket;
 
@@ -59,7 +62,7 @@ class Commande
     /**
      * @var Ticket[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ticket", mappedBy="commande", cascade={"persist"})
-     * @AcmeAssert\MaxTicketsByDay
+     * @Assert\Valid()
      */
     private $tickets;
 
