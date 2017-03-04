@@ -58,9 +58,7 @@ class CalculPrix extends Controller
                     break;
 
             }
-
             return $prixTicket;
-
     }
 
 }

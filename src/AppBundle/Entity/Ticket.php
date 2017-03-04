@@ -52,7 +52,6 @@ class Ticket
      * @var bool
      *
      * @ORM\Column(name="reduction", type="boolean")
-     * @Assert\NotBlank()
      */
     private $reduction;
 

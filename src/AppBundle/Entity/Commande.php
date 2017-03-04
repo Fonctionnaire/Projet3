@@ -44,7 +44,6 @@ class Commande
      * @var bool
      *
      * @ORM\Column(name="typeTicket", type="boolean")
-     * @Assert\NotBlank()
      */
     private $typeTicket;
 

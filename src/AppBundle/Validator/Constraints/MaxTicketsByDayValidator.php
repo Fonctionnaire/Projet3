@@ -2,11 +2,10 @@
 
 namespace AppBundle\Validator\Constraints;
 
-
-
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Doctrine\ORM\EntityManagerInterface;
+
 
 
 class MaxTicketsByDayValidator extends ConstraintValidator
@@ -26,20 +25,13 @@ class MaxTicketsByDayValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
 
-        //dump($value);
+      $maxTicket = $this->em->getRepository('AppBundle:Ticket')->getMaxTicketByDate($value);
 
-// COmpter le nb ticket vendu pour un jour (dans le repository Ticket avec jointure avec Commande)
-
-       /* if ($dateVisite && $nbTickets >= 2)
+       if ($maxTicket >= 999)
         {
             $this->context
                 ->buildViolation($constraint->message)
-                ->setParameters(array('%string%' => $value))
                 ->addViolation();
-        }*/
-
-
-
-
+        }
     }
 }

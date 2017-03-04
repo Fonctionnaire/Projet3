@@ -24,43 +24,44 @@ class Prix
     /**
      * @var int
      *
-     * @ORM\Column(name="normal", type="integer", options={"default" = 16})
+     * @ORM\Column(name="normal", type="integer")
      */
     private $normal = 16;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="enfant", type="integer", options={"default" = 8})
+     * @ORM\Column(name="enfant", type="integer")
      */
     private $enfant = 8;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="gratuit", type="integer", options={"default" = 0})
+     * @ORM\Column(name="gratuit", type="integer")
      */
     private $gratuit = 0;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="senior", type="integer", options={"default" = 12})
+     * @ORM\Column(name="senior", type="integer")
      */
     private $senior = 12;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="reduit", type="integer", options={"default" = 10})
+     * @ORM\Column(name="reduit", type="integer")
      */
     private $reduit = 10;
 
+    
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -84,7 +85,7 @@ class Prix
     /**
      * Get normal
      *
-     * @return int
+     * @return integer
      */
     public function getNormal()
     {
@@ -108,7 +109,7 @@ class Prix
     /**
      * Get enfant
      *
-     * @return int
+     * @return integer
      */
     public function getEnfant()
     {
@@ -132,7 +133,7 @@ class Prix
     /**
      * Get gratuit
      *
-     * @return int
+     * @return integer
      */
     public function getGratuit()
     {
@@ -156,7 +157,7 @@ class Prix
     /**
      * Get senior
      *
-     * @return int
+     * @return integer
      */
     public function getSenior()
     {
@@ -180,7 +181,7 @@ class Prix
     /**
      * Get reduit
      *
-     * @return int
+     * @return integer
      */
     public function getReduit()
     {

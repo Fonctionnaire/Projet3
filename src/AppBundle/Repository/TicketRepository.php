@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+
 /**
  * TicketRepository
  *
@@ -13,5 +14,16 @@ class TicketRepository extends EntityRepository
 {
 
 
+    public function getMaxTicketByDate($dateVisite)
+    {
+        return $this
+            ->createQueryBuilder('t')
+            ->innerJoin('t.commande', 'cmd')
+            ->select('COUNT(t)')
+            ->where('cmd.dateVisite = :dateVisite')
+            ->setParameter('dateVisite', $dateVisite)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
 }
