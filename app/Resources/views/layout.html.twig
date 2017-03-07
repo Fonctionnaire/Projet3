@@ -13,12 +13,14 @@
         <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Source+Serif+Pro" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Diplomata+SC|Roboto|Source+Serif+Pro" rel="stylesheet">
     {% endblock %}
 </head>
 <body data-spy="scroll" data-target="#ancreHoraire">
     <div class="container">
         <header >
-            <div class=" col-md-12" id="header">
+            <div id="header">
                 <a href="http://www.louvre.fr/" target="_blank"><img src="{{ asset('images/tn_louvre-530058_1280.jpg') }}" title="Vers l'accueil" alt="Logo Louvre" id="logo"></a>
                 <h1 id="titre_header">BILLETTERIE</h1>
             </div>
@@ -48,7 +50,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="{{ asset('js/datepicker.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/addAndDeleteTicket.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/scrollspy.js') }}"></script>
+   <!-- <script type="text/javascript" src="{{ asset('js/scrollspy.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('js/disableStripeButton.js') }}"></script>
 
 {% endblock %}

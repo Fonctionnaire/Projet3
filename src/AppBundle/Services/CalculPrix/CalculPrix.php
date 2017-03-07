@@ -32,7 +32,7 @@ class CalculPrix extends Controller
 
             // ON ATTRIBUT UN PRIX EN FONCTION DE L'AGE ET D'UNE REDUCTION
 
-            $prix = new Prix();
+            $prix = $this->em->getRepository('AppBundle:Prix')->find(1);
 
             $reduction = $ticket->getReduction();
             switch (true) {

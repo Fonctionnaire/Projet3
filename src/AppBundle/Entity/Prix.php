@@ -26,35 +26,35 @@ class Prix
      *
      * @ORM\Column(name="normal", type="integer")
      */
-    private $normal = 16;
+    private $normal;
 
     /**
      * @var int
      *
      * @ORM\Column(name="enfant", type="integer")
      */
-    private $enfant = 8;
+    private $enfant;
 
     /**
      * @var int
      *
      * @ORM\Column(name="gratuit", type="integer")
      */
-    private $gratuit = 0;
+    private $gratuit;
 
     /**
      * @var int
      *
      * @ORM\Column(name="senior", type="integer")
      */
-    private $senior = 12;
+    private $senior;
 
     /**
      * @var int
      *
      * @ORM\Column(name="reduit", type="integer")
      */
-    private $reduit = 10;
+    private $reduit;
 
     
 

@@ -1,7 +1,7 @@
 // SCROLLSPY VERS HORAIRES ET TARIFS
 
 $(function () {
-    $('a').on('click', function(e) {
+    $('.scroll').on('click', function(e) {
         e.preventDefault();
         var hash = this.hash;
         $('html, body').animate({

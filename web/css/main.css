@@ -15,6 +15,7 @@ body
 /* HEADER */
 #header
 {
+    min-width: 100%;
     padding: 0;
     display: flex;
     align-items: center;
@@ -44,19 +45,22 @@ body
     font-size: 1.5em;
     margin-bottom: 25px;
     margin-left: 15px;
+    padding-top: 10px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #message_accueil p
 {
     padding-bottom: 15px;
     margin-left: 15px;
-
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #ancreHoraire
 {
     background-color: rgba(255, 255, 255, 0.90);
     padding: 15px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 /* FORMULAIRE */
@@ -73,6 +77,7 @@ body
     text-align: center;
     padding-top: 10px;
     font-weight: bold;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 .formulaire
@@ -87,7 +92,6 @@ body
 .date-type
 {
     margin:25px;
-    height: 100%;
     display: flex;
     justify-content: space-around;
 }
@@ -102,24 +106,27 @@ body
     font-style: italic;
     font-size: 0.9em;
     margin: 15px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 .text-oblig-deux
 {
     font-style: italic;
     font-size: 0.9em;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #add_ticket
 {
     margin-bottom: 25px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #text-tarifReduit
 {
     font-style: italic;
     font-size: 0.9em;
-
+    font-family: 'Roboto', Arial, sans-serif;
     margin: 15px;
 }
 
@@ -132,7 +139,7 @@ body
 .nom{
     margin-right: 15px;
     margin-top: 15px;
-
+    font-family: 'Roboto', Arial, sans-serif;
 
 }
 
@@ -140,6 +147,7 @@ body
 {
     margin-right: 15px;
     margin-top: 15px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 .dateNaissance
@@ -150,12 +158,14 @@ body
 .select{
     width: 100px;
     margin-top: 15px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 .checkbox{
 
     margin-left: 15px;
     margin-top: 15px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 .titreTicket
@@ -168,12 +178,14 @@ body
     margin-top: 25px;
     margin-bottom: 25px;
     font-weight: bold;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 .suppr
 {
     margin-top: 15px;
     margin-bottom: 15px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 hr{
@@ -187,6 +199,7 @@ hr{
     margin-bottom: 30px;
     margin-top: 25px;
     text-align: center;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #email input
@@ -199,6 +212,7 @@ hr{
 {
     text-decoration: underline;
     font-weight: bold;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #horaireTarif
@@ -210,6 +224,7 @@ hr{
     padding-top: 15px;
     padding-bottom: 15px;
     color: white;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #horaireTarif h4
@@ -218,6 +233,7 @@ hr{
     text-decoration: underline;
     font-size: 1.2em;
     margin-bottom: 5px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 
@@ -229,11 +245,14 @@ hr{
 {
     height: 100%;
     padding-top: 25px;
+    background-color: rgba(255, 255, 255, 0.90);
 }
+
 
 #recapCommande p{
     margin-top: 15px;
     margin-left: 10%;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #titreRecap
@@ -242,6 +261,7 @@ hr{
     font-size: 1.4em;
     margin-left: 10%;
     margin-bottom: 30px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #tableauRecap
@@ -266,6 +286,7 @@ hr{
     padding: 5px;
     text-align: center;
     background-color: rgba(66, 150, 179, 0.70);
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #montantTotal
@@ -275,6 +296,7 @@ hr{
     font-weight: bold;
     font-size: 1.3em;
     margin-left: 60%;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #checkCgv
@@ -282,19 +304,21 @@ hr{
     margin-left: 35%;
     margin-bottom: 40px;
     margin-right: 15px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #BoutonPaiement
 {
     display: flex;
     margin-left: 35%;
-    margin-bottom: 40px;
+    padding-bottom: 40px;
 }
 
 #lienRetour
 {
     margin-left: 15px;
     margin-top: 10px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 
@@ -309,17 +333,19 @@ hr{
 
 #confirmation h1
 {
-    padding-top: 15px;
+    padding-top: 25px;
     font-weight: bold;
     font-size: 1.4em;
     margin-left: 15px;
     margin-bottom: 25px;
     color: limegreen;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #confirmation p
 {
     margin: 15px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 #lienConfirmation
@@ -328,12 +354,14 @@ hr{
     margin-left: 35%;
     margin-top: 35px;
     margin-bottom: 20px;
+    font-family: 'Roboto', Arial, sans-serif;
 
 }
 
 #retourAccueil
 {
     margin-top: -12px;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 
@@ -360,6 +388,7 @@ footer a
     color: white;
     text-decoration: none;
     text-transform: none;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 footer a:hover
@@ -374,16 +403,10 @@ footer p
     font-size: 0.8em;
     margin-top: 10px;
     text-align: center;
+    font-family: 'Roboto', Arial, sans-serif;
 
 }
 
-/* =============================== */
-
-/* PAGE RECAPITULATIF DE COMMANDE */
-#page_recap
-{
-    background-color: rgba(255, 255, 255, 0.90);
-}
 
 /* =============================== */
 
