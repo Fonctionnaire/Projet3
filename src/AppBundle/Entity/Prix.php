@@ -19,42 +19,42 @@ class Prix
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var int
      *
      * @ORM\Column(name="normal", type="integer")
      */
-    private $normal;
+    protected $normal;
 
     /**
      * @var int
      *
      * @ORM\Column(name="enfant", type="integer")
      */
-    private $enfant;
+    protected $enfant;
 
     /**
      * @var int
      *
      * @ORM\Column(name="gratuit", type="integer")
      */
-    private $gratuit;
+    protected $gratuit;
 
     /**
      * @var int
      *
      * @ORM\Column(name="senior", type="integer")
      */
-    private $senior;
+    protected $senior;
 
     /**
      * @var int
      *
      * @ORM\Column(name="reduit", type="integer")
      */
-    private $reduit;
+    protected $reduit;
 
     
 

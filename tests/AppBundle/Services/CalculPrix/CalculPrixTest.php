@@ -10,34 +10,29 @@ use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Prix;
 
 
-
 class CalculPrixTest extends TestCase
 {
 
+    /**
+     * @var CalculPrix
+     */
+    private $service;
 
-
-    public function testPrixTicketIsGratuit()
+    protected function setUp()
     {
+        $prix = new Prix();
 
-        $prix = $this->createMock(Prix::class);
-        $prix->method('getId')
-            ->will($this->returnValue(1));
-        $prix->expects($this->once())
-            ->method('getGratuit')
-            ->will($this->returnValue(0));
-
-
-        $ticket = $this->createMock(Ticket::class);
-        $ticket->expects($this->once())
-            ->method('getDateNaissance')
-            ->will($this->returnValue(new \DateTime()));
-
+        $prix->setSenior(12);
+        $prix->setEnfant(8);
+        $prix->setGratuit(0);
+        $prix->setNormal(16);
+        $prix->setReduit(10);
 
         $prixRepository = $this
             ->getMockBuilder(EntityRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $prixRepository->expects($this->once())
+        $prixRepository->expects($this->any())
             ->method('find')
             ->will($this->returnValue($prix));
 
@@ -45,168 +40,102 @@ class CalculPrixTest extends TestCase
             ->getMockBuilder(EntityManagerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $em->expects($this->once())
+
+        $em->expects($this->any())
             ->method('getRepository')
             ->will($this->returnValue($prixRepository));
 
-        $calculPrix = new CalculPrix($em);
-        $this->assertEquals(0, $calculPrix->prixTotal($ticket));
-
+        $this->service = new CalculPrix($em);
     }
 
     public function testPrixTicketIsSenior()
     {
-        $prix = $this->createMock(Prix::class);
-        $prix
-            ->method('getId')
-            ->will($this->returnValue(1));
-        $prix->expects($this->once())
-            ->method('getSenior')
-            ->will($this->returnValue(12));
+        $ticket = new Ticket();
+        $ticket->setReduction(false);
+        $ticket->setDateNaissance(new \DateTime('1910-10-10'));
 
-
-        $ticket = $this->createMock(Ticket::class);
-        $ticket->expects($this->once())
-            ->method('getDateNaissance')
-            ->will($this->returnValue(new \DateTime()));
-
-
-        $prixRepository = $this
-            ->getMockBuilder(EntityRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $prixRepository->expects($this->once())
-            ->method('find')
-            ->will($this->returnValue($prix));
-
-        $em = $this
-            ->getMockBuilder(EntityManagerInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $em->expects($this->once())
-            ->method('getRepository')
-            ->will($this->returnValue($prixRepository));
-
-
-
-        $calculPrix = new CalculPrix($em);
-        $this->assertEquals(12, $calculPrix->prixTotal($ticket));
-    }
-
-    public function testPrixTicketIsNormal()
-    {
-        $prix = $this->createMock(Prix::class);
-        $prix
-            ->method('getId')
-            ->will($this->returnValue(1));
-        $prix->expects($this->once())
-            ->method('getNormal')
-            ->will($this->returnValue(16));
-
-
-        $ticket = $this->createMock(Ticket::class);
-        $ticket->expects($this->once())
-            ->method('getDateNaissance')
-            ->will($this->returnValue(new \DateTime()));
-
-
-        $prixRepository = $this
-            ->getMockBuilder(EntityRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $prixRepository->expects($this->once())
-            ->method('find')
-            ->will($this->returnValue($prix));
-
-        $em = $this
-            ->getMockBuilder(EntityManagerInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $em->expects($this->once())
-            ->method('getRepository')
-            ->will($this->returnValue($prixRepository));
-
-
-
-        $calculPrix = new CalculPrix($em);
-        $this->assertEquals(16, $calculPrix->prixTotal($ticket));
+        $this->assertEquals(12, $this->service->prixTotal($ticket, true));
     }
 
     public function testPrixTicketIsEnfant()
     {
-        $prix = $this->createMock(Prix::class);
-        $prix
-            ->method('getId')
-            ->will($this->returnValue(1));
-        $prix->expects($this->once())
-            ->method('getEnfant')
-            ->will($this->returnValue(8));
+        $ticket = new Ticket();
+        $ticket->setReduction(false);
+        $ticket->setDateNaissance(new \DateTime('2009-10-10'));
 
+        $this->assertEquals(8, $this->service->prixTotal($ticket, true));
+    }
 
-        $ticket = $this->createMock(Ticket::class);
-        $ticket->expects($this->once())
-            ->method('getDateNaissance')
-            ->will($this->returnValue(new \DateTime()));
+    public function testPrixTicketIsNormal()
+    {
+        $ticket = new Ticket();
+        $ticket->setReduction(false);
+        $ticket->setDateNaissance(new \DateTime('1995-10-10'));
 
+        $this->assertEquals(16, $this->service->prixTotal($ticket, true));
+    }
 
-        $prixRepository = $this
-            ->getMockBuilder(EntityRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $prixRepository->expects($this->once())
-            ->method('find')
-            ->will($this->returnValue($prix));
+    public function testPrixTicketIsGratuit()
+    {
+        $ticket = new Ticket();
+        $ticket->setReduction(false);
+        $ticket->setDateNaissance(new \DateTime('2015-10-10'));
 
-        $em = $this
-            ->getMockBuilder(EntityManagerInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $em->expects($this->once())
-            ->method('getRepository')
-            ->will($this->returnValue($prixRepository));
-
-
-
-        $calculPrix = new CalculPrix($em);
-        $this->assertEquals(8, $calculPrix->prixTotal($ticket));
+        $this->assertEquals(0, $this->service->prixTotal($ticket, true));
     }
 
     public function testPrixTicketIsReduit()
     {
-        $prix = $this->createMock(Prix::class);
-        $prix
-            ->method('getId')
-            ->will($this->returnValue(1));
-        $prix->expects($this->once())
-            ->method('getReduit')
-            ->will($this->returnValue(10));
+        $ticket = new Ticket();
+        $ticket->setReduction(true);
+        $ticket->setDateNaissance(new \DateTime('1910-10-10'));
 
-
-        $ticket = $this->createMock(Ticket::class);
-        $ticket->expects($this->once())
-            ->method('getDateNaissance')
-            ->will($this->returnValue(new \DateTime()));
-
-
-        $prixRepository = $this
-            ->getMockBuilder(EntityRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $prixRepository->expects($this->once())
-            ->method('find')
-            ->will($this->returnValue($prix));
-
-        $em = $this
-            ->getMockBuilder(EntityManagerInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $em->expects($this->once())
-            ->method('getRepository')
-            ->will($this->returnValue($prixRepository));
-
-
-
-        $calculPrix = new CalculPrix($em);
-        $this->assertEquals(10, $calculPrix->prixTotal($ticket));
+        $this->assertEquals(10, $this->service->prixTotal($ticket, true));
     }
+
+    public function testPrixTicketIsSeniorAndDemi()
+    {
+        $ticket = new Ticket();
+        $ticket->setReduction(false);
+        $ticket->setDateNaissance(new \DateTime('1910-10-10'));
+
+        $this->assertEquals(6, $this->service->prixTotal($ticket, false));
+    }
+
+    public function testPrixTicketIsEnfantAndDemi()
+    {
+        $ticket = new Ticket();
+        $ticket->setReduction(false);
+        $ticket->setDateNaissance(new \DateTime('2009-10-10'));
+
+        $this->assertEquals(4, $this->service->prixTotal($ticket, false));
+    }
+
+    public function testPrixTicketIsNormalAndDemi()
+    {
+        $ticket = new Ticket();
+        $ticket->setReduction(false);
+        $ticket->setDateNaissance(new \DateTime('1995-10-10'));
+
+        $this->assertEquals(8, $this->service->prixTotal($ticket, false));
+    }
+
+    public function testPrixTicketIsGratuitAndDemi()
+    {
+        $ticket = new Ticket();
+        $ticket->setReduction(false);
+        $ticket->setDateNaissance(new \DateTime('2015-10-10'));
+
+        $this->assertEquals(0, $this->service->prixTotal($ticket, false));
+    }
+
+    public function testPrixTicketIsReduitAndDemi()
+    {
+        $ticket = new Ticket();
+        $ticket->setReduction(true);
+        $ticket->setDateNaissance(new \DateTime('1910-10-10'));
+
+        $this->assertEquals(5, $this->service->prixTotal($ticket, false));
+    }
+
 }

@@ -51,10 +51,6 @@ class CommandeType extends AbstractType
             ))
             ->add('valider', SubmitType::class);
 
-
-
-
-
     }
 
     /**

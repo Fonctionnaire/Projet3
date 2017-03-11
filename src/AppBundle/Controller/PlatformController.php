@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Commande;
-use AppBundle\Entity\Ticket;
 use AppBundle\Form\Type\CommandeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,21 +19,19 @@ class PlatformController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $ticket = new Ticket();
         $commande = new Commande();
         $form = $this->createForm(CommandeType::class, $commande);
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $listTickets = $commande->getTickets();
             foreach ($listTickets as $ticket)
             {
-                $prixTicket = $this->get("app.calculprix")->prixTotal($ticket);
+                $prixTicket = $this->get("app.calculprix")->prixTotal($ticket, $commande->getTypeTicket());
                 $ticket->setPrix($prixTicket);
             }
             $em = $this->getDoctrine()->getManager();
             $codeReservation = $this->get("app.codeResa")->checkCodeResa();
             $commande->setCodeResa($codeReservation);
             $em->persist($commande);
-            $em->persist($ticket);
             $em->flush();
 
             return $this->redirectToRoute('recap', array('id' => $commande->getId()));
@@ -50,19 +47,15 @@ class PlatformController extends Controller
      */
     public function recapAction($id)
     {
-
         $em = $this->getDoctrine()->getManager();
         $commande = $em->getRepository('AppBundle:Commande')->findOneById($id);
 
-        $listTickets = $em
-        ->getRepository('AppBundle:Ticket')
-        ->findBy(array('commande' => $commande));
+        $listTickets = $commande->getTickets();
 
         $cAtcu = array(
             'commande' => $commande,
 
         );
-
         return $this->render('::recap.html.twig', array('cActu' => $cAtcu,
             'listTickets' => $listTickets));
     }
@@ -80,7 +73,7 @@ class PlatformController extends Controller
         $em = $this->getDoctrine()->getManager();
         $commande = $em->getRepository('AppBundle:Commande')->findOneById($id);
 
-        $listTickets = $em->getRepository('AppBundle:Ticket')->findBy(array('commande' => $commande));
+        $listTickets = $commande->getTickets();
         $total = $commande->getPrixTotal();
 
         try {
@@ -119,6 +112,21 @@ class PlatformController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $commande = $em->getRepository('AppBundle:Commande')->findOneById($id);
+        $listTickets = $commande->getTickets();
+        if ($commande->getPrixTotal() == 0)
+        {
+            $message = \Swift_Message::newInstance()->setSubject('Votre commande')
+                ->setFrom('commande@louvre.fr')
+                ->setTo($commande->getEmail())
+                ->setBody($this->renderView(
+                    'Emails/ticket.html.twig',
+                    array(
+                        'commande' => $commande, 'listTickets' => $listTickets)
+                ),
+                    'text/html'
+                );
+            $this->get('mailer')->send($message);
+        }
 
         return $this->render("::confirmation.html.twig", array('id' => $commande->getId()));
     }

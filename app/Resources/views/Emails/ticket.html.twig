@@ -40,13 +40,7 @@
                 <td>{{ ticket.nom }}</td>
                 <td>{{ ticket.prenom }}</td>
                 <td>{{ ticket.dateNaissance|date('d/m/Y') }}</td>
-                <td>
-                        {% if commande.typeTicket == true %}
-                            {{ ticket.prix }} €
-                        {% else %}
-                            {{ ticket.prix / 2 }} €
-                        {% endif %}
-                </td>
+                <td>{{ ticket.prix }} €</td>
                 <td>
                     {% if ticket.reduction == true %}
                         Oui

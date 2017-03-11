@@ -28,9 +28,6 @@ function disableDayAndDates(date) {
 
     var heure   = ('0'+now.getHours()  ).slice(-2);
 
-
-
-
     if (d == 2) {
 
         return [false] ;
@@ -73,11 +70,9 @@ $(function() {
 
             if (dateText == jourActuel && heure >= 14 && heure < 24){
                 ticketOptionDelete.detach();
-                console.log(dateText);
             }
             else{
                 ticketOptionDelete.insertBefore(formSelect);
-                console.log(dateText);
             }
         }
     });

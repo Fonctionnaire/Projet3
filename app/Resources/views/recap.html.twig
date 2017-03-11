@@ -32,13 +32,7 @@
                     <td>{{ ticket.nom }}</td>
                     <td>{{ ticket.prenom }}</td>
                     <td>{{ ticket.dateNaissance|date('d/m/Y') }}</td>
-                    <td>
-                        {% if cActu.commande.typeTicket == true %}
-                            {{ ticket.prix }} €
-                        {% else %}
-                            {{ ticket.prix / 2 }} €
-                        {% endif %}
-                    </td>
+                    <td>{{ ticket.prix }} €</td>
                     <td>
                         {% if ticket.reduction == true %}
                             Oui
@@ -60,6 +54,9 @@
 
         <div id="BoutonPaiement">
 
+            {% if cActu.commande.prixTotal == 0 %}
+                <a href="{{ path('confirmation', {'id': cActu.commande.id}) }}" id="prixZero">Valider cette commande</a>
+            {% else %}
         <form action="{{ path('validation', {'id': cActu.commande.id}) }}" method="POST">
             <script
                     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -74,13 +71,9 @@
                     data-allow-remember-me="false"
                     data-email="{{ cActu.commande.email }}"
                     data-currency="eur">
-
-
-
-
             </script>
         </form>
-
+        {% endif %}
 
             <a href="{{ path('homepage', {'id': cActu.commande.id}) }}" id="lienRetour"><p>Retour au choix des billets</p></a>
         </div>

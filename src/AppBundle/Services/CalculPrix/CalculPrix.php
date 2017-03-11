@@ -4,8 +4,8 @@ namespace AppBundle\Services\CalculPrix;
 
 
 
+use AppBundle\Entity\Commande;
 use AppBundle\Entity\Ticket;
-use AppBundle\Entity\Prix;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -20,44 +20,45 @@ class CalculPrix extends Controller
     }
 
 
-    public function prixTotal(Ticket $ticket)
+    /**
+     * @return float
+     */
+    public function prixTotal(Ticket $ticket, $typeTicket)
     {
+        $dateDeNaissance = $ticket->getDateNaissance()->diff(new \DateTime());
 
+        $age = $dateDeNaissance->y;
 
-            // ON RECUPERE LA DATE DE NAISSANCE POUR CALCULER L'AGE
+        $prix = $this->em->getRepository('AppBundle:Prix')->find(1);
 
-            $dateDeNaissance = $ticket->getDateNaissance()->diff(new \DateTime());
+        $reduction = $ticket->getReduction();
+        switch (true) {
 
-            $age = $dateDeNaissance->y;
+            case ($age >= 12 && $age < 60 && $reduction === false):
+                $prixTicket = $prix->getNormal();
+                break;
 
-            // ON ATTRIBUT UN PRIX EN FONCTION DE L'AGE ET D'UNE REDUCTION
+            case ($age >= 60 && $reduction === false):
+                $prixTicket = $prix->getSenior();
+                break;
 
-            $prix = $this->em->getRepository('AppBundle:Prix')->find(1);
+            case ($age >= 4 && $age < 12):
+                $prixTicket = $prix->getEnfant();
+                break;
 
-            $reduction = $ticket->getReduction();
-            switch (true) {
+            case (true === $reduction):
+                $prixTicket = $prix->getReduit();
+                break;
 
-                case ($age >= 12 && $age < 60 && $reduction === false):
-                    $prixTicket = $prix->getNormal();
-                    break;
+            default:
+                $prixTicket = $prix->getGratuit();
+                break;
 
-                case ($age >= 60 && $reduction === false):
-                    $prixTicket = $prix->getSenior();
-                    break;
+        }
 
-                case ($age >= 4 && $age < 12):
-                    $prixTicket = $prix->getEnfant();
-                    break;
-
-                case (true === $reduction):
-                    $prixTicket = $prix->getReduit();
-                    break;
-
-                default:
-                    $prixTicket = $prix->getGratuit();
-                    break;
-
-            }
+        if($typeTicket === false){
+            return $prixTicket / 2;
+        }
             return $prixTicket;
     }
 

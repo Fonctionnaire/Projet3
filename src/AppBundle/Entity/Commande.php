@@ -201,10 +201,6 @@ class Commande
 
         }
 
-        if($this->getTypeTicket() === false){
-            $prixDemi = $prixTickets / 2;
-            return $prixDemi;
-        }
         return $prixTickets;
     }
 
