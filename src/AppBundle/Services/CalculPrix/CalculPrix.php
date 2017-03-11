@@ -2,9 +2,6 @@
 
 namespace AppBundle\Services\CalculPrix;
 
-
-
-use AppBundle\Entity\Commande;
 use AppBundle\Entity\Ticket;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
