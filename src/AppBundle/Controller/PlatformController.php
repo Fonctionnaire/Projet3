@@ -94,8 +94,6 @@ class PlatformController extends Controller
                 );
             $this->get('mailer')->send($message);
 
-            $this->addFlash('notice', 'Le paiement a bien été effectué, vous allez recevoir vos billets par e-mail');
-
             return $this->redirectToRoute("confirmation", array('id' => $commande->getId()));
         } catch(\Stripe\Error\Card $e) {
 
