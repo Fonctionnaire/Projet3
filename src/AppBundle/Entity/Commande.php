@@ -36,6 +36,7 @@ class Commande
      * @ORM\Column(name="dateVisite", type="date")
      * @Assert\NotNull()
      * @Assert\Date()
+     * @Assert\GreaterThanOrEqual("today", message="Impossible de commander pour un jour passé")
      * @LouvreAssert\MaxTicketsByDay()
      */
     private $dateVisite;

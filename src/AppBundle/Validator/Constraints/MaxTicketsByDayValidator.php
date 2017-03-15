@@ -5,6 +5,7 @@ namespace AppBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Doctrine\ORM\EntityManagerInterface;
+use AppBundle\Entity\Commande;
 
 
 
@@ -30,8 +31,9 @@ class MaxTicketsByDayValidator extends ConstraintValidator
        if ($maxTicket >= 999)
         {
             $this->context
-                ->buildViolation($constraint->message)
+                ->buildViolation($constraint->messageMaxTicket)
                 ->addViolation();
         }
+
     }
 }

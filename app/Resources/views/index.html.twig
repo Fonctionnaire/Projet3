@@ -28,8 +28,8 @@
 
             <p class="text-oblig-Un">Les champs date de visite et type de billet sont obligatoires.</p>
             <div class="date-type">
-                {{ form_errors(form.dateVisite) }}
-                {{ form_row(form.dateVisite, {'attr': {'placeholder': 'Cliquez pour choisir une date'}}) }}
+
+                {{ form_row(form.dateVisite, {'attr': {'placeholder': 'Cliquez pour choisir une date', 'readonly': 'readonly'}}) }}
 
                 {{ form_errors(form.typeTicket) }}
                 {{ form_row(form.typeTicket) }}
