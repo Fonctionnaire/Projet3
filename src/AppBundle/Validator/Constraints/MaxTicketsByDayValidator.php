@@ -27,7 +27,7 @@ class MaxTicketsByDayValidator extends ConstraintValidator
 
       $maxTicket = $this->em->getRepository('AppBundle:Ticket')->getMaxTicketByDate($value);
 
-       if ($maxTicket >= 999)
+       if ($maxTicket >= 1000)
         {
             $this->context
                 ->buildViolation($constraint->messageMaxTicket)

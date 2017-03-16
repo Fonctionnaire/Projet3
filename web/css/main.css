@@ -470,14 +470,14 @@ footer p
 
     #email
     {
-        text-align: inherit;
-        margin: auto;
+
+        text-align: center;
     }
 
     #email input
     {
         width: 300px;
-        margin-left: 0;
+        margin:auto;
 
     }
 
