@@ -249,6 +249,11 @@ hr{
 }
 
 
+#recapCommande
+{
+    margin-bottom: 30px;
+}
+
 #recapCommande p{
     margin-top: 15px;
     margin-left: 10%;
@@ -267,7 +272,7 @@ hr{
 #tableauRecap
 {
     border-collapse: collapse;
-    margin: 25px;
+    margin: auto;
     width: 60%;
 }
 
@@ -423,6 +428,11 @@ footer p
 
 @media screen and (max-width: 720px){
 
+    #titre_header
+    {
+        font-size: 1.5em;
+    }
+
     #message_accueil p
     {
         font-size: 0.8em;
@@ -458,13 +468,10 @@ footer p
         font-size: 0.8em;
     }
 
-
-
-
     #email
     {
         text-align: inherit;
-        margin-left: 15px;
+        margin: auto;
     }
 
     #email input
@@ -472,6 +479,11 @@ footer p
         width: 300px;
         margin-left: 0;
 
+    }
+
+    #text-email
+    {
+        margin-bottom: 15px;
     }
 
     #horaireTarif div
@@ -482,12 +494,12 @@ footer p
     #titreRecap
     {
 
-        font-size: 1.2em;
+        font-size: 1em;
     }
 
     #tableauRecap th
     {
-        font-size: 0.8em;
+        font-size: 0.7em;
     }
 
     #tableauRecap td
@@ -498,27 +510,31 @@ footer p
     #montantTotal
     {
 
-        font-size: 1em;
+        font-size: 0.8em;
         margin-left: 50%;
     }
 
     #checkCgv
     {
         margin-left: 15px;
+
+    }
+
+    #cgv
+    {
         font-size: 0.7em;
     }
 
     #BoutonPaiement
     {
-
+        font-size: 0.7em;
         margin-left: 10%;
-        margin-bottom: 40px;
+        max-width: 100%;
     }
 
     #lienRetour
     {
-
-        font-size: 0.7em;
+        font-size: 0.6em;
     }
 
     /* ================== */
