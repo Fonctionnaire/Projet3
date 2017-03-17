@@ -25,7 +25,7 @@ $(document).ready(function() {
     function addTicket($container) {
 
         var template = $container.attr('data-prototype')
-                .replace(/__name__label__/g,'<hr>' + 'Billet')
+                .replace(/__name__label__/g,'<hr>' + 'Billet' )
                 .replace(/__name__/g,        index)
             ;
 

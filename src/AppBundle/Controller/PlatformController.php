@@ -7,7 +7,6 @@ use AppBundle\Form\Type\CommandeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
@@ -42,38 +41,23 @@ class PlatformController extends Controller
 
     /**
      * @Route("/recapitulatif/{id}", name="recap")
-     * @ParamConverter("ticket", options={"mapping": {"commande_id": "commande"}})
      * @Method({"GET"})
      */
-    public function recapAction($id)
+    public function recapAction(Commande $commande)
     {
-        $em = $this->getDoctrine()->getManager();
-        $commande = $em->getRepository('AppBundle:Commande')->findOneById($id);
-
-        $listTickets = $commande->getTickets();
-
-        $cAtcu = array(
-            'commande' => $commande,
-
-        );
-        return $this->render('::recap.html.twig', array('cActu' => $cAtcu,
-            'listTickets' => $listTickets));
+        return $this->render('::recap.html.twig', array('commande' => $commande));
     }
-
 
 
     /**
      * @Route("/validation/{id}", name="validation", methods="POST")
      */
-    public function savePaiementAction(Request $request, $id)
+    public function savePaiementAction(Request $request, Commande $commande)
     {
         \Stripe\Stripe::setApiKey("sk_test_tIN6ASnQYiwCF2nnehCiOPIl");
 
         $token = $request->request->get('stripeToken');
-        $em = $this->getDoctrine()->getManager();
-        $commande = $em->getRepository('AppBundle:Commande')->findOneById($id);
 
-        $listTickets = $commande->getTickets();
         $total = $commande->getPrixTotal();
 
         try {
@@ -88,7 +72,7 @@ class PlatformController extends Controller
                 ->setBody($this->renderView(
                         'Emails/ticket.html.twig',
                         array(
-                            'commande' => $commande, 'listTickets' => $listTickets)
+                            'commande' => $commande)
                     ),
                     'text/html'
                 );
@@ -106,11 +90,8 @@ class PlatformController extends Controller
      * @Route("/confirmation/{id}", name="confirmation")
      * @Method({"GET"})
      */
-    public function confirmationAction($id)
+    public function confirmationAction(Commande $commande)
     {
-        $em = $this->getDoctrine()->getManager();
-        $commande = $em->getRepository('AppBundle:Commande')->findOneById($id);
-        $listTickets = $commande->getTickets();
         if ($commande->getPrixTotal() == 0)
         {
             $message = \Swift_Message::newInstance()->setSubject('Votre commande')
@@ -119,7 +100,7 @@ class PlatformController extends Controller
                 ->setBody($this->renderView(
                     'Emails/ticket.html.twig',
                     array(
-                        'commande' => $commande, 'listTickets' => $listTickets)
+                        'commande' => $commande)
                 ),
                     'text/html'
                 );

@@ -43,14 +43,16 @@
                 </div>
                 <div class="conteneurFormTicket">
                 <p class="text-oblig-deux">Les champs Nom, Prénom, Date de naissance, Pays et E-mail sont obligatoires.</p>
-                <div class="displayTicket">
-
-                    {{ form_errors(form.tickets, {'attr': {'class': 'ticketForm'}}) }}
-                    {{ form_widget(form.tickets, {'attr': {'class': 'ticketForm form-inline '}}) }}
 
 
-                </div>
-                <hr>
+                    <div class="displayTicket">
+
+                        {{ form_errors(form.tickets, {'attr': {'class': 'ticketForm'}}) }}
+                        {{ form_widget(form.tickets, {'attr': {'class': 'ticketForm form-inline '}}) }}
+
+                    </div>
+<hr>
+
 
                 <a href="#" id="add_ticket" class="btn btn-default">Ajouter un billet</a>
 

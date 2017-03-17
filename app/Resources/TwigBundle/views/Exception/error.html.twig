@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Une erreur s'est produite: {{ status_text }}</title>
-</head>
-<body>
-<h1>Oops! Une erreur s'est produite</h1>
-<h2>Le serveur retourne un "{{ status_code }} {{ status_text }}".</h2>
+{% extends "::layout.html.twig" %}
 
-<div>
-    Une erreur s'est produite. Vous pouvez nous contacter par e-mail à l'adresse gruffy.thibaut@gmail.com et nous dire ce que vous faisiez au moment où l'erreur est survenue. Nous réparerons l'erreur le plus vite possible. Toutes nos excuses pour la gêne occasionnée.
+{% block body %}
+    {{ parent() }}
+    <div class="erreur_perso">
+        <h1>Oops! Une erreur s'est produite</h1>
+        <h2>Le serveur retourne un "{{ status_code }} {{ status_text }}".</h2>
 
-</div>
-</body>
+        <div id="textEssais">
+            Une erreur s'est produite. Vous pouvez nous contacter par e-mail à l'adresse gruffy.thibaut@gmail.com et nous dire ce que vous faisiez au moment où l'erreur est survenue. Nous réparerons l'erreur le plus vite possible. Toutes nos excuses pour la gêne occasionnée.
 
-</html>
+        </div>
+    </div>
+
+{% endblock %}

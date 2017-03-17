@@ -378,6 +378,17 @@ hr{
     font-family: 'Roboto', Arial, sans-serif;
 }
 
+/* ERREURS */
+
+.erreur_perso
+{
+    background-color: rgba(255, 255, 255, 0.90);
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+
+/* =============================== */
+
 
 /* FOOTER */
 footer
@@ -423,6 +434,8 @@ footer p
 
 
 /* =============================== */
+
+
 
 /* MEDIA QUIERIES */
 
