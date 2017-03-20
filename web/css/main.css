@@ -384,6 +384,20 @@ hr{
 {
     background-color: rgba(255, 255, 255, 0.90);
     font-family: 'Roboto', Arial, sans-serif;
+    padding: 10%;
+}
+
+.erreur_perso h1
+{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.erreur_perso hr
+{
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 

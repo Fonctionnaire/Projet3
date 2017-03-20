@@ -34,7 +34,7 @@ class Commande
      * @var \DateTime
      *
      * @ORM\Column(name="dateVisite", type="date")
-     * @Assert\NotNull()
+     * @Assert\NotNull(message="Choisissez une date")
      * @Assert\Date()
      * @Assert\GreaterThanOrEqual("today", message="Impossible de commander pour un jour passé")
      * @LouvreAssert\MaxTicketsByDay()
