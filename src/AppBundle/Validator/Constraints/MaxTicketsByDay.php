@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraint;
 class MaxTicketsByDay extends Constraint
 {
 
-    public $messageMaxTicket = 'Le maximum de billets vendu pour ce jour a été atteind';
+    public $messageMaxTicket = 'Le maximum de billets vendu pour ce jour a été atteint';
 
     public function validatedBy()
     {
